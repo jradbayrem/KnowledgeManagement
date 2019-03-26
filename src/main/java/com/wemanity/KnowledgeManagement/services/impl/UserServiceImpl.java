@@ -40,7 +40,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	@Override
 	public User findByFirstNameAndLastName(String firstName, String lastName) {
-		return null;
+		return userRepository.findFirst1ByFirstNameAndLastName(firstName, lastName);
 	}
 
 }
