@@ -38,5 +38,13 @@ public class UserServiceImplTest {
 		userService.save(myUser);
 		Mockito.verify(userRepository).save(myUser);
 	}
+	
+	@Test
+	public void should_update_when_update_is_called() {
+		LOGGER.info("--------------- Executing should_update_when_update_is_called test Of UserServiceImplTest ---------------");
+		User myUser = new User();
+		userService.update(myUser);
+		Mockito.verify(userRepository).save(myUser);
+	}
 
 }
