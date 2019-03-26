@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class UserServiceImpl implements IUserService {
 		return userRepository.findById(id).orElse(null);
 	}
 	@Override
-	public User findAll() {
+	public List<User> findAll() {
 		return null;
 	}
 

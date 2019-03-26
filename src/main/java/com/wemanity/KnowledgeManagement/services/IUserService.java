@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.services;
 
+import java.util.List;
+
 import com.wemanity.KnowledgeManagement.entities.User;
 
 public interface IUserService {
@@ -12,6 +14,6 @@ public interface IUserService {
 	
 	public User findById(Integer id);
 	
-	public User findAll();
+	public List<User> findAll();
 
 }
