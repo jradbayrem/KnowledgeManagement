@@ -7,5 +7,7 @@ public interface IUserService {
 	public User save(User user);
 	
 	public User update(User user);
+	
+	public void delete(User user);
 
 }

@@ -24,5 +24,9 @@ public class UserServiceImpl implements IUserService {
 	public User update(User user) {
 		return  userRepository.save(user);
 	}
+	@Override
+	public void delete(User user) {
+		
+	}
 
 }

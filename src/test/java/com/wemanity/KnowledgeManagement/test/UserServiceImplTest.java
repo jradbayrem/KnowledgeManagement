@@ -46,5 +46,12 @@ public class UserServiceImplTest {
 		userService.update(myUser);
 		Mockito.verify(userRepository).save(myUser);
 	}
-
+	
+	@Test
+	public void should_delete_when_delete_is_called() {
+		LOGGER.info("--------------- Executing should_delete_when_delete_is_called test Of UserServiceImplTest ---------------");
+		User myUser = new User();
+		userService.delete(myUser);
+		Mockito.verify(userRepository).delete(myUser);
+	}
 }
