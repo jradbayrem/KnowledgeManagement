@@ -54,4 +54,12 @@ public class UserServiceImplTest {
 		userService.delete(myUser);
 		Mockito.verify(userRepository).delete(myUser);
 	}
+	
+	@Test
+	public void should_search_by_id_when_findById_is_called() {
+		LOGGER.info("--------------- Executing should_search_by_id_when_findById_is_called test Of UserServiceImplTest ---------------");
+		Integer id = new Integer(1);
+		userService.findById(id);
+		Mockito.verify(userRepository).findById(id);
+	}
 }
