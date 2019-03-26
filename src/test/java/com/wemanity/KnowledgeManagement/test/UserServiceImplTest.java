@@ -62,4 +62,11 @@ public class UserServiceImplTest {
 		userService.findById(id);
 		Mockito.verify(userRepository).findById(id);
 	}
+	
+	@Test
+	public void should_search_all_when_findAll_is_called() {
+		LOGGER.info("--------------- Executing should_search_all_when_findAll_is_called test Of UserServiceImplTest ---------------");
+		userService.findAll();
+		Mockito.verify(userRepository).findAll();
+	}
 }

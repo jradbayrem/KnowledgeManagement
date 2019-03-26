@@ -32,5 +32,9 @@ public class UserServiceImpl implements IUserService {
 	public User findById(Integer id) {
 		return userRepository.findById(id).orElse(null);
 	}
+	@Override
+	public User findAll() {
+		return null;
+	}
 
 }

@@ -11,5 +11,7 @@ public interface IUserService {
 	public void delete(User user);
 	
 	public User findById(Integer id);
+	
+	public User findAll();
 
 }
