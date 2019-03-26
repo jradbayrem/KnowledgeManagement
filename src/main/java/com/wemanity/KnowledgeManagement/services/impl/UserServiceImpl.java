@@ -38,5 +38,9 @@ public class UserServiceImpl implements IUserService {
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
+	@Override
+	public User findByFirstNameAndLastName(String firstName, String lastName) {
+		return null;
+	}
 
 }

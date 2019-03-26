@@ -69,4 +69,13 @@ public class UserServiceImplTest {
 		userService.findAll();
 		Mockito.verify(userRepository).findAll();
 	}
+	
+	@Test
+	public void should_search_by_firstname_and_last_name_when_findByFirstNameAndLastName_is_called() {
+		LOGGER.info("--------------- Executing should_search_by_firstname_and_last_name_when_findByFirstNameAndLastName_is_called test Of UserServiceImplTest ---------------");
+		String firstName = "John";
+		String lastName = "Doe";
+		userService.findByFirstNameAndLastName(firstName, lastName);
+		Mockito.verify(userRepository).findFirst1ByFirstNameAndLastName(firstName, lastName);
+	}
 }

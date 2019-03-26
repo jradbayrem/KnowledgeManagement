@@ -15,5 +15,7 @@ public interface IUserService {
 	public User findById(Integer id);
 	
 	public List<User> findAll();
+	
+	public User findByFirstNameAndLastName(String firstName, String lastName);
 
 }
