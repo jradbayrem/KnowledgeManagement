@@ -22,7 +22,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	@Override
 	public User update(User user) {
-		return null;
+		return  userRepository.save(user);
 	}
 
 }
