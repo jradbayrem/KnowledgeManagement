@@ -36,7 +36,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	@Override
 	public List<User> findAll() {
-		return null;
+		return userRepository.findAll();
 	}
 
 }
