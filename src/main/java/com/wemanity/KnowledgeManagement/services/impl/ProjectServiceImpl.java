@@ -21,8 +21,8 @@ public class ProjectServiceImpl implements IProjectService {
 	}
 
 	@Override
-	public Project update(Project projet) {
-		return null;
+	public Project update(Project project) {
+		return projectRepository.save(project);
 	}
 
 }
