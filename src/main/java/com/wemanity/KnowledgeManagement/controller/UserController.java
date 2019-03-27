@@ -39,6 +39,9 @@ public class UserController {
 		}
 		return new ResponseEntity<>(userDtoList, HttpStatus.OK);
 	}
-
+	
+	public ResponseEntity<User> updateUser(User user) {
+		return null;
+	}
 
 }
