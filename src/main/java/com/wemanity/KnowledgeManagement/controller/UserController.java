@@ -15,6 +15,7 @@ import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.services.IUserService;
 import com.wemanity.KnowledgeManagement.services.impl.UserServiceImpl;
 
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
@@ -27,8 +28,11 @@ public class UserController {
 		userService = userServiceImpl;
 	}
 
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllUsers() {
-		return null;
+		List<User> users = new ArrayList<>();
+		users = userService.findAll();
+		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
 }
