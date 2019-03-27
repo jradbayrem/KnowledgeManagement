@@ -17,7 +17,6 @@ import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.services.IUserService;
 import com.wemanity.KnowledgeManagement.services.impl.UserServiceImpl;
 
-
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
@@ -35,15 +34,20 @@ public class UserController {
 		List<User> users = new ArrayList<>();
 		users = userService.findAll();
 		List<UserDto> userDtoList = new ArrayList<UserDto>();
-		for(User currentUser: users) {
+		for (User currentUser : users) {
 			userDtoList.add(new UserDto(currentUser));
 		}
 		return new ResponseEntity<>(userDtoList, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> updateUser(User user) {
 		userService.update(user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);	}
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
 
+	public ResponseEntity<User> createUser(User user) {
+			return null;
+	}
+	
 }

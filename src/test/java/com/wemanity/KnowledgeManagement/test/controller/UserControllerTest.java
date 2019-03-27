@@ -102,4 +102,31 @@ public class UserControllerTest {
 		verify(userServiceImpl).update(myUser);
 	}
 
+	@Test
+	public void should_have_200_status_when_createUser_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_createUser_is_called test Of UserServiceImplTest ---------------");
+		try {
+			User myUser = new User(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail",
+					false, null, new Date());
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(myUser);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri + "/createUser")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_save_when_createUser_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_save_when_createUser_is_called test Of UserServiceImplTest ---------------");
+		User myUser = new User(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail",
+				false, null, new Date());
+		userController.createUser(myUser);
+		verify(userServiceImpl).save(myUser);
+	}
 }
