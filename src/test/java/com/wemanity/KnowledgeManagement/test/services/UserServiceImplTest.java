@@ -1,4 +1,4 @@
-package com.wemanity.KnowledgeManagement.test;
+package com.wemanity.KnowledgeManagement.test.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
