@@ -20,4 +20,9 @@ public class ProjectServiceImpl implements IProjectService {
 		return projectRepository.save(project);
 	}
 
+	@Override
+	public Project update(Project projet) {
+		return null;
+	}
+
 }

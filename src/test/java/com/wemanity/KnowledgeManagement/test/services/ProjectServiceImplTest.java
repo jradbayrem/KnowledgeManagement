@@ -38,5 +38,13 @@ public class ProjectServiceImplTest {
 		projectService.save(myProject);
 		Mockito.verify(projectRepository).save(myProject);
 	}
+	
+	@Test
+	public void should_update_when_update_is_called() {
+		LOGGER.info("--------------- Executing should_update_when_update_is_called test Of ProjectServiceImplTest ---------------");
+		Project myProject = new Project();
+		projectService.update(myProject);
+		Mockito.verify(projectRepository).save(myProject);
+	}
 
 }

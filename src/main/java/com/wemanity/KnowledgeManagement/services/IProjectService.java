@@ -5,5 +5,7 @@ import com.wemanity.KnowledgeManagement.entities.Project;
 public interface IProjectService {
 	
 	public Project save(Project project);
+	
+	public Project update(Project projet);
 
 }
