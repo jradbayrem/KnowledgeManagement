@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,8 +41,9 @@ public class UserController {
 		return new ResponseEntity<>(userDtoList, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> updateUser(User user) {
-		return null;
-	}
+		userService.update(user);
+		return new ResponseEntity<User>(user, HttpStatus.OK);	}
 
 }
