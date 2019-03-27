@@ -1,5 +1,8 @@
 package com.wemanity.KnowledgeManagement.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.wemanity.KnowledgeManagement.dto.UserDto;
 import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.repositories.IUserRepository;
 import com.wemanity.KnowledgeManagement.services.impl.UserServiceImpl;
@@ -77,5 +81,31 @@ public class UserServiceImplTest {
 		String lastName = "Doe";
 		userService.findByFirstNameAndLastName(firstName, lastName);
 		Mockito.verify(userRepository).findFirst1ByFirstNameAndLastName(firstName, lastName);
+	}
+	
+	@Test
+	public void should_get_a_not_null_user_when_getUserFromUserDto_is_called() {
+		LOGGER.info("--------------- Executing should_get_a_not_null_user_when_getUserFromUserDto_is_called test Of UserServiceImplTest ---------------");
+		UserDto userDto = new UserDto(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail");
+		User myUser = userService.getUserFromUserDto(userDto);
+		assertNotNull(myUser);
+		assertNotNull(myUser.getId());
+		assertEquals(myUser.getId(),userDto.getId());
+		assertNotNull(myUser.getLogin());
+		assertEquals(myUser.getLogin(),userDto.getLogin());
+		assertNotNull(myUser.getFirstName());
+		assertEquals(myUser.getFirstName(),userDto.getFirstName());
+		assertNotNull(myUser.getLastName());
+		assertEquals(myUser.getLastName(),userDto.getLastName());
+		assertNotNull(myUser.getPassword());
+		assertEquals(myUser.getPassword(),userDto.getPassword());
+		assertNotNull(myUser.getDepartement());
+		assertEquals(myUser.getDepartement(),userDto.getDepartement());
+		assertNotNull(myUser.getEmail());
+		assertEquals(myUser.getEmail(),userDto.getEmail());
+		assertNotNull(myUser.getLastModified());
+		assertNotNull(myUser.getUserCreator());
+
+
 	}
 }

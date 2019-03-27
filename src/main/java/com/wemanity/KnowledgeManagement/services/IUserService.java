@@ -2,6 +2,7 @@ package com.wemanity.KnowledgeManagement.services;
 
 import java.util.List;
 
+import com.wemanity.KnowledgeManagement.dto.UserDto;
 import com.wemanity.KnowledgeManagement.entities.User;
 
 public interface IUserService {
@@ -17,5 +18,7 @@ public interface IUserService {
 	public List<User> findAll();
 	
 	public User findByFirstNameAndLastName(String firstName, String lastName);
+	
+	public User getUserFromUserDto(UserDto userDto);
 
 }

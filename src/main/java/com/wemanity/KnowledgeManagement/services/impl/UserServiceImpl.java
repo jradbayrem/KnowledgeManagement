@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wemanity.KnowledgeManagement.dto.UserDto;
 import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.repositories.IUserRepository;
 import com.wemanity.KnowledgeManagement.services.IUserService;
@@ -41,6 +42,10 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public User findByFirstNameAndLastName(String firstName, String lastName) {
 		return userRepository.findFirst1ByFirstNameAndLastName(firstName, lastName);
+	}
+	@Override
+	public User getUserFromUserDto(UserDto userDto) {
+		return null;
 	}
 
 }
