@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wemanity.KnowledgeManagement.controller.UserController;
 import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.services.impl.UserServiceImpl;
@@ -78,9 +79,12 @@ public class UserControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_updateUser_is_called test Of UserServiceImplTest ---------------");
 		try {
-			mvcResult = mvc
-					.perform(MockMvcRequestBuilders.get(uri + "/updateUser").accept(MediaType.APPLICATION_JSON_VALUE))
-					.andReturn();
+			User myUser = new User(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail",
+					false, null, new Date());
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(myUser);
+			MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/updateUser")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
 			LOGGER.error("An exception occured");
