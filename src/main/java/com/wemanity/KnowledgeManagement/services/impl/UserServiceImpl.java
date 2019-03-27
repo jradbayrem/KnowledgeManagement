@@ -1,5 +1,6 @@
 package com.wemanity.KnowledgeManagement.services.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	@Override
 	public User getUserFromUserDto(UserDto userDto) {
-		return null;
+		return new User(userDto.getId(), userDto.getLogin(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(), userDto.getDepartement(), userDto.getEmail(), true, new User(), new Date());
 	}
 
 }
