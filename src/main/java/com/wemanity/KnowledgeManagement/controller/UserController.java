@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wemanity.KnowledgeManagement.dto.UserDto;
 import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.services.IUserService;
 import com.wemanity.KnowledgeManagement.services.impl.UserServiceImpl;
@@ -29,10 +30,15 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public ResponseEntity<List<User>> getAllUsers() {
+	public ResponseEntity<List<UserDto>> getAllUsers() {
 		List<User> users = new ArrayList<>();
 		users = userService.findAll();
-		return new ResponseEntity<>(users, HttpStatus.OK);
+		List<UserDto> userDtoList = new ArrayList<UserDto>();
+		for(User currentUser: users) {
+			userDtoList.add(new UserDto(currentUser));
+		}
+		return new ResponseEntity<>(userDtoList, HttpStatus.OK);
 	}
+
 
 }
