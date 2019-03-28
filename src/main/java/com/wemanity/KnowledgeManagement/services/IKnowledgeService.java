@@ -7,5 +7,7 @@ public interface IKnowledgeService {
 	public Knowledge save(Knowledge knowledge);
 	
 	public Knowledge update(Knowledge knowledge);
+	
+	public void delete(Knowledge knowledge);
 
 }

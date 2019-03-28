@@ -46,5 +46,13 @@ public class KnowledgeServiceImplTest {
 		Mockito.verify(knowledgeRepository).save(knowledge);
 	}
 	
+	@Test
+	public void should_delete_when_delete_is_called() {
+		LOGGER.info("--------------- Executing should_delete_when_delete_is_called test Of KnowledgeServiceImplTest ---------------");
+		Knowledge knowledge = new Knowledge();
+		knowledgeService.delete(knowledge);
+		Mockito.verify(knowledgeRepository).delete(knowledge);
+	}
+	
 
 }

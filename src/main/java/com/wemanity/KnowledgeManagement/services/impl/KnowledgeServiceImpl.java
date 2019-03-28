@@ -25,4 +25,9 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 		return this.knowledgeRepository.save(knowledge);
 	}
 
+	@Override
+	public void delete(Knowledge knowledge) {
+		
+	}
+
 }
