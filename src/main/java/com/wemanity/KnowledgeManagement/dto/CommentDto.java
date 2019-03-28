@@ -22,12 +22,13 @@ public class CommentDto {
 		this.knowledge = new KnowledgeDto(comment.getKnowledge());
 	}
 
-	public CommentDto(Integer id, String title, String content, UserDto userCreator) {
+	public CommentDto(Integer id, String title, String content, UserDto userCreator, KnowledgeDto knowledge) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.userCreator = userCreator;
+		this.knowledge = knowledge;
 	}
 
 	public CommentDto() {
