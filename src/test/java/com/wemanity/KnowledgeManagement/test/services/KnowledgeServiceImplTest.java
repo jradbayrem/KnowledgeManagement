@@ -61,5 +61,14 @@ public class KnowledgeServiceImplTest {
 		Mockito.verify(knowledgeRepository).findAll();
 	}
 	
+	@Test
+	public void should_search_by_id_when_findById_is_called() {
+		LOGGER.info("--------------- Executing should_search_by_id_when_findById_is_called test Of KnowledgeServiceImplTest ---------------");
+		knowledgeService.findById(new Integer(1));
+		Mockito.verify(knowledgeRepository).findById(new Integer(1));
+	}
+
+
+	
 
 }

@@ -13,5 +13,7 @@ public interface IKnowledgeService {
 	public void delete(Knowledge knowledge);
 	
 	public List<Knowledge> findAll();
+	
+	public Knowledge findById(Integer id);
 
 }

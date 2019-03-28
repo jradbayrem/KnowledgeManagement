@@ -37,4 +37,9 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 		return this.knowledgeRepository.findAll();
 	}
 
+	@Override
+	public Knowledge findById(Integer id) {
+		return null;
+	}
+
 }
