@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.wemanity.KnowledgeManagement.dto.CommentDto;
 import com.wemanity.KnowledgeManagement.entities.Comment;
@@ -13,6 +14,7 @@ import com.wemanity.KnowledgeManagement.repositories.ICommentRepository;
 import com.wemanity.KnowledgeManagement.services.ICommentService;
 import com.wemanity.KnowledgeManagement.services.IUserService;
 
+@Service
 public class CommentServiceImpl implements ICommentService {
 
 	@Autowired
