@@ -46,5 +46,13 @@ public class ProjectServiceImplTest {
 		projectService.update(myProject);
 		Mockito.verify(projectRepository).save(myProject);
 	}
+	
+	@Test
+	public void should_delete_when_delete_is_called() {
+		LOGGER.info("--------------- Executing should_delete_when_delete_is_called test Of ProjectServiceImplTest ---------------");
+		Project myProject = new Project();
+		projectService.delete(myProject);
+		Mockito.verify(projectRepository).delete(myProject);
+	}
 
 }

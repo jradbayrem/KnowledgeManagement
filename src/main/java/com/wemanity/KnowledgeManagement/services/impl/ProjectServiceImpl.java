@@ -25,4 +25,8 @@ public class ProjectServiceImpl implements IProjectService {
 		return projectRepository.save(project);
 	}
 
+	@Override
+	public void delete(Project project) {		
+	}
+
 }
