@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.test.services;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.wemanity.KnowledgeManagement.entities.Comment;
+import com.wemanity.KnowledgeManagement.entities.Knowledge;
+import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.repositories.ICommentRepository;
 import com.wemanity.KnowledgeManagement.services.impl.CommentServiceImpl;
 
@@ -52,6 +56,14 @@ public class CommentServiceImplTest {
 		Comment myComment = new Comment();
 		commentService.delete(myComment);
 		Mockito.verify(commentRepository).delete(myComment);
+	}
+	
+	@Test
+	public void should_search_by_knowledge_when_findByKnowledge_is_called() {
+		LOGGER.info("--------------- Executing should_search_by_knowledge_when_findByKnowledge_is_called test Of CommentServiceImplTest ---------------");
+		Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext",null, "myLangage", "myEndType", null, new User(), new Date());
+		commentService.findByKnowledge(myKnowledge);
+		Mockito.verify(commentRepository).findByKnowledge(myKnowledge);
 	}
 
 }

@@ -1,8 +1,11 @@
 package com.wemanity.KnowledgeManagement.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wemanity.KnowledgeManagement.entities.Comment;
+import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.repositories.ICommentRepository;
 import com.wemanity.KnowledgeManagement.services.ICommentService;
 
@@ -28,6 +31,11 @@ public class CommentServiceImpl implements ICommentService {
 	@Override
 	public void delete(Comment comment) {
 		this.commentRepository.delete(comment);
+	}
+
+	@Override
+	public List<Comment> findByKnowledge(Knowledge knowledge) {
+		return null;
 	}
 
 }
