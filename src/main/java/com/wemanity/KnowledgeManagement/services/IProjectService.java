@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.services;
 
+import java.util.List;
+
 import com.wemanity.KnowledgeManagement.entities.Project;
 
 public interface IProjectService {
@@ -11,5 +13,7 @@ public interface IProjectService {
 	public void delete(Project project);
 	
 	public Project findById(Integer id);
+	
+	public List<Project> findAll();
 
 }

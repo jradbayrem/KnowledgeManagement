@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wemanity.KnowledgeManagement.entities.Project;
@@ -33,6 +35,11 @@ public class ProjectServiceImpl implements IProjectService {
 	@Override
 	public Project findById(Integer id) {
 		return projectRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<Project> findAll() {
+		return null;
 	}
 
 }

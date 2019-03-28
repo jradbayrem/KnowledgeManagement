@@ -56,9 +56,16 @@ public class ProjectServiceImplTest {
 
 	@Test
 	public void should_search_by_id_when_findById_is_called() {
-		LOGGER.info("--------------- Executing should_search_by_id_when_findById_is_called test Of UserServiceImplTest ---------------");
+		LOGGER.info("--------------- Executing should_search_by_id_when_findById_is_called test Of ProjectServiceImplTest ---------------");
 		Integer id = new Integer(1);
 		projectService.findById(id);
 		Mockito.verify(projectRepository).findById(id);
+	}
+	
+	@Test
+	public void should_search_all_when_findAll_is_called() {
+		LOGGER.info("--------------- Executing should_search_all_when_findAll_is_called test Of ProjectServiceImplTest ---------------");
+		projectService.findAll();
+		Mockito.verify(projectRepository).findAll();
 	}
 }
