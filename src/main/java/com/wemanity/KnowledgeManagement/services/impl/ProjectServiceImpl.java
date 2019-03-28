@@ -39,7 +39,7 @@ public class ProjectServiceImpl implements IProjectService {
 
 	@Override
 	public List<Project> findAll() {
-		return null;
+		return projectRepository.findAll();
 	}
 
 }
