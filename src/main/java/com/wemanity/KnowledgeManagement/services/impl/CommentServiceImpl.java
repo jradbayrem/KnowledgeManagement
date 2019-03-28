@@ -1,18 +1,24 @@
 package com.wemanity.KnowledgeManagement.services.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wemanity.KnowledgeManagement.dto.CommentDto;
 import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
+import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.repositories.ICommentRepository;
 import com.wemanity.KnowledgeManagement.services.ICommentService;
+import com.wemanity.KnowledgeManagement.services.IUserService;
 
 public class CommentServiceImpl implements ICommentService {
 
 	@Autowired
 	ICommentRepository commentRepository;
+	@Autowired
+	IUserService userService;
 	
 	public CommentServiceImpl(ICommentRepository commentRepository) {
 		this.commentRepository = commentRepository;
@@ -36,6 +42,12 @@ public class CommentServiceImpl implements ICommentService {
 	@Override
 	public List<Comment> findByKnowledge(Knowledge knowledge) {
 		return this.commentRepository.findByKnowledge(knowledge);
+	}
+
+	@Override
+	public Comment getCommentFromCommentDto(CommentDto comment) {
+		Comment myComment = new Comment(comment.getId(),comment.getTitle(),comment.getContent(),new User(),new Date());
+		return new Comment(comment.getId(),comment.getTitle(),comment.getContent(),new User(),new Date());
 	}
 
 }
