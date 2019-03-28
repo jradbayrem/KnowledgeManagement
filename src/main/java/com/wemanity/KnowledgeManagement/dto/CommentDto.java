@@ -11,12 +11,15 @@ public class CommentDto {
 	private String content;
 
 	private UserDto userCreator;
+	
+	private KnowledgeDto knowledge;
 
 	public CommentDto(Comment comment) {
 		this.id = comment.getId();
 		this.title = comment.getTitle();
 		this.content = comment.getContent();
 		this.userCreator = new UserDto(comment.getUserCreator());
+		this.knowledge = new KnowledgeDto(comment.getKnowledge());
 	}
 
 	public CommentDto(Integer id, String title, String content, UserDto userCreator) {
@@ -61,5 +64,13 @@ public class CommentDto {
 
 	public void setUserCreator(UserDto userCreator) {
 		this.userCreator = userCreator;
+	}
+
+	public KnowledgeDto getKnowledge() {
+		return knowledge;
+	}
+
+	public void setKnowledge(KnowledgeDto knowledge) {
+		this.knowledge = knowledge;
 	}
 }
