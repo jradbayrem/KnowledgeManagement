@@ -20,4 +20,9 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 		return this.knowledgeRepository.save(knowledge);
 	}
 
+	@Override
+	public Knowledge update(Knowledge knowledge) {
+		return null;
+	}
+
 }

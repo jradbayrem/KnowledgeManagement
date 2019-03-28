@@ -38,5 +38,13 @@ public class KnowledgeServiceImplTest {
 		Mockito.verify(knowledgeRepository).save(knowledge);
 	}
 	
+	@Test
+	public void should_update_when_update_is_called() {
+		LOGGER.info("--------------- Executing should_update_when_update_is_called test Of KnowledgeServiceImplTest ---------------");
+		Knowledge knowledge = new Knowledge();
+		knowledgeService.update(knowledge);
+		Mockito.verify(knowledgeRepository).save(knowledge);
+	}
+	
 
 }
