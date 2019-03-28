@@ -54,5 +54,12 @@ public class KnowledgeServiceImplTest {
 		Mockito.verify(knowledgeRepository).delete(knowledge);
 	}
 	
+	@Test
+	public void should_search_all_when_findAll_is_called() {
+		LOGGER.info("--------------- Executing should_search_all_when_findAll_is_called test Of KnowledgeServiceImplTest ---------------");
+		knowledgeService.findAll();
+		Mockito.verify(knowledgeRepository).findAll();
+	}
+	
 
 }

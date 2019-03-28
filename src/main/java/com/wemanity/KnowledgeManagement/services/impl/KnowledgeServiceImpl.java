@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
@@ -28,6 +30,11 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 	@Override
 	public void delete(Knowledge knowledge) {
 		this.knowledgeRepository.delete(knowledge);
+	}
+
+	@Override
+	public List<Knowledge> findAll() {
+		return null;
 	}
 
 }
