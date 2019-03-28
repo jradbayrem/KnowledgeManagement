@@ -22,7 +22,7 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public Comment update(Comment comment) {
-		return null;
+		return this.commentRepository.save(comment);
 	}
 
 }
