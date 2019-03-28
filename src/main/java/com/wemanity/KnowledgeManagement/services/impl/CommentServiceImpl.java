@@ -26,9 +26,8 @@ public class CommentServiceImpl implements ICommentService {
 	}
 
 	@Override
-	public Comment delete(Comment comment) {
+	public void delete(Comment comment) {
 		this.commentRepository.delete(comment);
-		return null;
 	}
 
 }

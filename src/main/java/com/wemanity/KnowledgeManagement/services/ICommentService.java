@@ -8,6 +8,6 @@ public interface ICommentService {
 
 	public Comment update(Comment comment);
 	
-	public Comment delete(Comment comment);
+	public void delete(Comment comment);
 
 }
