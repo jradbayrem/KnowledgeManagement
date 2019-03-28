@@ -35,7 +35,7 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public List<Comment> findByKnowledge(Knowledge knowledge) {
-		return null;
+		return this.commentRepository.findByKnowledge(knowledge);
 	}
 
 }
