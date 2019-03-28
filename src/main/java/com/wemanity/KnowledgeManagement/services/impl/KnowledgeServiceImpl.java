@@ -22,7 +22,7 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 
 	@Override
 	public Knowledge update(Knowledge knowledge) {
-		return null;
+		return this.knowledgeRepository.save(knowledge);
 	}
 
 }
