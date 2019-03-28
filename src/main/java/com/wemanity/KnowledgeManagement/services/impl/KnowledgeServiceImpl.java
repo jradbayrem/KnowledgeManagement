@@ -51,7 +51,7 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 
 	@Override
 	public List<Knowledge> findByUserCreator(User user) {
-		return null;
+		return this.knowledgeRepository.findByUserCreator(user);
 	}
 
 }
