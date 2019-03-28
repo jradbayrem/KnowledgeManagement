@@ -1,5 +1,8 @@
 package com.wemanity.KnowledgeManagement.test.services;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Date;
 
 import org.junit.Before;
@@ -13,6 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.wemanity.KnowledgeManagement.dto.CommentDto;
+import com.wemanity.KnowledgeManagement.dto.KnowledgeDto;
+import com.wemanity.KnowledgeManagement.dto.UserDto;
 import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.entities.User;
@@ -64,6 +70,22 @@ public class CommentServiceImplTest {
 		Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext",null, "myLangage", "myEndType", null, new User(), new Date());
 		commentService.findByKnowledge(myKnowledge);
 		Mockito.verify(commentRepository).findByKnowledge(myKnowledge);
+	}
+	
+	@Test
+	public void should_get_a_not_null_comment_when_getCommentFromCommentDto_is_called() {
+		LOGGER.info("--------------- Executing should_get_a_not_null_comment_when_getCommentFromCommentDto_is_called test Of CommentServiceImplTest ---------------");
+		CommentDto commentDto = new CommentDto(1, "myTitle", "myContent", new UserDto(), new KnowledgeDto());
+		Comment myComment = commentService.getCommentFromCommentDto(commentDto);
+		assertNotNull(myComment);
+		assertNotNull(myComment.getId());
+		assertEquals(myComment.getId(),commentDto.getId());
+		assertNotNull(myComment.getTitle());
+		assertEquals(myComment.getTitle(),commentDto.getTitle());
+		assertNotNull(myComment.getContent());
+		assertEquals(myComment.getContent(),commentDto.getContent());
+		assertNotNull(myComment.getLastModified());
+
 	}
 
 }
