@@ -45,7 +45,7 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 
 	@Override
 	public List<Knowledge> findByRelatedProject(Project project) {
-		return null;
+		return this.knowledgeRepository.findByRelatedProject(project);
 	}
 
 }
