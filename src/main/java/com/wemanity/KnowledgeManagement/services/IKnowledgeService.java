@@ -3,6 +3,7 @@ package com.wemanity.KnowledgeManagement.services;
 import java.util.List;
 
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
+import com.wemanity.KnowledgeManagement.entities.Project;
 
 public interface IKnowledgeService {
 	
@@ -15,5 +16,7 @@ public interface IKnowledgeService {
 	public List<Knowledge> findAll();
 	
 	public Knowledge findById(Integer id);
+	
+	public List<Knowledge> findByRelatedProject(Project project);
 
 }

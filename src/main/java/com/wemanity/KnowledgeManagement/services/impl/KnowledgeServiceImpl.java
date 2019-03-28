@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
+import com.wemanity.KnowledgeManagement.entities.Project;
 import com.wemanity.KnowledgeManagement.repositories.IKnowledgeRepository;
 import com.wemanity.KnowledgeManagement.services.IKnowledgeService;
 
@@ -40,6 +41,11 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 	@Override
 	public Knowledge findById(Integer id) {
 		return this.knowledgeRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<Knowledge> findByRelatedProject(Project project) {
+		return null;
 	}
 
 }

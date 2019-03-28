@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
+import com.wemanity.KnowledgeManagement.entities.Project;
 import com.wemanity.KnowledgeManagement.repositories.IKnowledgeRepository;
 import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
 
@@ -68,6 +69,13 @@ public class KnowledgeServiceImplTest {
 		Mockito.verify(knowledgeRepository).findById(new Integer(1));
 	}
 
+	@Test
+	public void should_search_by_project_when_findByRelatedProject_is_called() {
+		LOGGER.info("--------------- Executing should_search_by_project_when_findByRelatedProject_is_called test Of KnowledgeServiceImplTest ---------------");
+		Project myProject = new Project();
+		knowledgeService.findByRelatedProject(myProject);
+		Mockito.verify(knowledgeRepository).findByRelatedProject(myProject);
+	}
 
 	
 
