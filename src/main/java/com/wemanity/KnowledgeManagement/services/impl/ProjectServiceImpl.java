@@ -32,7 +32,7 @@ public class ProjectServiceImpl implements IProjectService {
 
 	@Override
 	public Project findById(Integer id) {
-		return null;
+		return projectRepository.findById(id).orElse(null);
 	}
 
 }
