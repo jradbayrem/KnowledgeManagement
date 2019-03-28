@@ -30,4 +30,9 @@ public class ProjectServiceImpl implements IProjectService {
 		projectRepository.delete(project);
 	}
 
+	@Override
+	public Project findById(Integer id) {
+		return null;
+	}
+
 }

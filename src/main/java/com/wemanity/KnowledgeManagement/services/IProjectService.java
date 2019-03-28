@@ -9,5 +9,7 @@ public interface IProjectService {
 	public Project update(Project projet);
 	
 	public void delete(Project project);
+	
+	public Project findById(Integer id);
 
 }

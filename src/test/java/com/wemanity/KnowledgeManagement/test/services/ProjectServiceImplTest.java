@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.wemanity.KnowledgeManagement.entities.Project;
-import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.repositories.IProjectRepository;
 import com.wemanity.KnowledgeManagement.services.impl.ProjectServiceImpl;
 
@@ -55,4 +54,11 @@ public class ProjectServiceImplTest {
 		Mockito.verify(projectRepository).delete(myProject);
 	}
 
+	@Test
+	public void should_search_by_id_when_findById_is_called() {
+		LOGGER.info("--------------- Executing should_search_by_id_when_findById_is_called test Of UserServiceImplTest ---------------");
+		Integer id = new Integer(1);
+		projectService.findById(id);
+		Mockito.verify(projectRepository).findById(id);
+	}
 }
