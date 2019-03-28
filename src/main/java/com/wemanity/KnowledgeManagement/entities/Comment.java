@@ -21,6 +21,9 @@ public class Comment {
 
 	@ManyToOne
 	private User userCreator;
+	
+	@ManyToOne
+	private Knowledge knowledge;
 
 	private Date lastModified;
 
@@ -76,5 +79,15 @@ public class Comment {
 	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
 	}
+
+	public Knowledge getKnowledge() {
+		return knowledge;
+	}
+
+	public void setKnowledge(Knowledge knowledge) {
+		this.knowledge = knowledge;
+	}
+	
+	
 
 }
