@@ -27,7 +27,7 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 
 	@Override
 	public void delete(Knowledge knowledge) {
-		
+		this.knowledgeRepository.delete(knowledge);
 	}
 
 }
