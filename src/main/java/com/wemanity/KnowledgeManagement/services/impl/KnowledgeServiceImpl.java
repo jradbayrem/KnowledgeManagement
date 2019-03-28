@@ -34,7 +34,7 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 
 	@Override
 	public List<Knowledge> findAll() {
-		return null;
+		return this.knowledgeRepository.findAll();
 	}
 
 }
