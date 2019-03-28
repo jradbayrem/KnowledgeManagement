@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.entities.Project;
+import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.repositories.IKnowledgeRepository;
 import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
 
@@ -77,6 +78,12 @@ public class KnowledgeServiceImplTest {
 		Mockito.verify(knowledgeRepository).findByRelatedProject(myProject);
 	}
 
-	
+	@Test
+	public void should_search_by_user_when_findByUserCreator_is_called() {
+		LOGGER.info("--------------- Executing should_search_by_user_when_findByUserCreator_is_called test Of KnowledgeServiceImplTest ---------------");
+		User myUser = new User();
+		knowledgeService.findByUserCreator(myUser);
+		Mockito.verify(knowledgeRepository).findByUserCreator(myUser);
+	}
 
 }

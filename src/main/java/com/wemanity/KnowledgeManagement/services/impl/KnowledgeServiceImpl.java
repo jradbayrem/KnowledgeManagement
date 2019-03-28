@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.entities.Project;
+import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.repositories.IKnowledgeRepository;
 import com.wemanity.KnowledgeManagement.services.IKnowledgeService;
 
@@ -46,6 +47,11 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 	@Override
 	public List<Knowledge> findByRelatedProject(Project project) {
 		return this.knowledgeRepository.findByRelatedProject(project);
+	}
+
+	@Override
+	public List<Knowledge> findByUserCreator(User user) {
+		return null;
 	}
 
 }

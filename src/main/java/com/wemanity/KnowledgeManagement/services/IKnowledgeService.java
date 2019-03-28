@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.entities.Project;
+import com.wemanity.KnowledgeManagement.entities.User;
 
 public interface IKnowledgeService {
 	
@@ -18,5 +19,8 @@ public interface IKnowledgeService {
 	public Knowledge findById(Integer id);
 	
 	public List<Knowledge> findByRelatedProject(Project project);
+	
+	public List<Knowledge> findByUserCreator(User user);
+
 
 }
