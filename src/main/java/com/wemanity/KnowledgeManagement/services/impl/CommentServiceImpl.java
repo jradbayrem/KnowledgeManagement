@@ -25,4 +25,10 @@ public class CommentServiceImpl implements ICommentService {
 		return this.commentRepository.save(comment);
 	}
 
+	@Override
+	public Comment delete(Comment comment) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

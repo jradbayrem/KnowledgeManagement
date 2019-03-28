@@ -45,5 +45,13 @@ public class CommentServiceImplTest {
 		commentService.update(myComment);
 		Mockito.verify(commentRepository).save(myComment);
 	}
+	
+	@Test
+	public void should_delete_when_delete_is_called() {
+		LOGGER.info("--------------- Executing should_delete_when_delete_is_called test Of CommentServiceImplTest ---------------");
+		Comment myComment = new Comment();
+		commentService.delete(myComment);
+		Mockito.verify(commentRepository).delete(myComment);
+	}
 
 }
