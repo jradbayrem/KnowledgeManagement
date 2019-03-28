@@ -26,7 +26,8 @@ public class ProjectServiceImpl implements IProjectService {
 	}
 
 	@Override
-	public void delete(Project project) {		
+	public void delete(Project project) {	
+		projectRepository.delete(project);
 	}
 
 }
