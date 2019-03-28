@@ -17,7 +17,7 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public Comment save(Comment comment) {
-		return null;
+		return this.commentRepository.save(comment);
 	}
 
 }
