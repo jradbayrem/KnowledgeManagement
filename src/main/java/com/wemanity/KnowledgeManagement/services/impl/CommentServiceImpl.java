@@ -27,7 +27,7 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public Comment delete(Comment comment) {
-		// TODO Auto-generated method stub
+		this.commentRepository.delete(comment);
 		return null;
 	}
 
