@@ -37,5 +37,13 @@ public class CommentServiceImplTest {
 		commentService.save(myComment);
 		Mockito.verify(commentRepository).save(myComment);
 	}
+	
+	@Test
+	public void should_update_when_update_is_called() {
+		LOGGER.info("--------------- Executing should_update_when_update_is_called test Of CommentServiceImplTest ---------------");
+		Comment myComment = new Comment();
+		commentService.update(myComment);
+		Mockito.verify(commentRepository).save(myComment);
+	}
 
 }
