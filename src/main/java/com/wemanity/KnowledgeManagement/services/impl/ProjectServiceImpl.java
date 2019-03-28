@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wemanity.KnowledgeManagement.dto.ProjectDto;
 import com.wemanity.KnowledgeManagement.entities.Project;
 import com.wemanity.KnowledgeManagement.repositories.IProjectRepository;
 import com.wemanity.KnowledgeManagement.services.IProjectService;
@@ -40,6 +41,11 @@ public class ProjectServiceImpl implements IProjectService {
 	@Override
 	public List<Project> findAll() {
 		return projectRepository.findAll();
+	}
+
+	@Override
+	public Project getProjectFromProjectDto(ProjectDto project) {
+		return null;
 	}
 
 }
