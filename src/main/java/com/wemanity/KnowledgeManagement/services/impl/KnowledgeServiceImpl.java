@@ -39,7 +39,7 @@ public class KnowledgeServiceImpl implements IKnowledgeService {
 
 	@Override
 	public Knowledge findById(Integer id) {
-		return null;
+		return this.knowledgeRepository.findById(id).orElse(null);
 	}
 
 }
