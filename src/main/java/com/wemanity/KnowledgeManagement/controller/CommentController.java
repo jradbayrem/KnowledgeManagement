@@ -40,4 +40,8 @@ public class CommentController {
 		}
 		return new ResponseEntity<>(commentsDto, HttpStatus.OK);
 	}
+	
+	public ResponseEntity<CommentDto> createComment(Comment comment) {
+		return null;
+}
 }

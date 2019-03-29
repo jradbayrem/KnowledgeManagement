@@ -79,4 +79,31 @@ public class CommentControllerTest {
 		verify(commentServiceImpl).findByKnowledge(myKnowledge);
 	}
 	
+	@Test
+	public void should_have_200_status_when_createComment_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_createComment_is_called test Of CommentControllerTest ---------------");
+		try {
+			Comment myComment = new Comment(1,"myTitle","myContent",new User(),new Date());
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(myComment);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri + "/createComment")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_save_when_createComment_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_save_when_createComment_is_called test Of CommentControllerTest ---------------");
+		Comment myComment = new Comment();
+		commentController.createComment(myComment);
+		verify(commentServiceImpl).save(myComment);
+	}
+
+
 }
