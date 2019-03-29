@@ -3,6 +3,8 @@ package com.wemanity.KnowledgeManagement.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +22,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wemanity.KnowledgeManagement.controller.CommentController;
+import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
+import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.services.impl.CommentServiceImpl;
 
 @RunWith(SpringRunner.class)
@@ -54,8 +59,10 @@ public class CommentControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_getCommentsByKnowledge_is_called test Of CommentControllerTest ---------------");
 		try {
-			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/comments").accept(MediaType.APPLICATION_JSON_VALUE))
-					.andReturn();
+			Knowledge myKnowledge = new Knowledge(5,"myTitle","myDescription","myContext",null,"myLangage","myEndType",null,null,new Date());
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(myKnowledge);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/comments").contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
 			LOGGER.error("An exception occured");
@@ -71,5 +78,5 @@ public class CommentControllerTest {
 		commentController.getCommentsByKnowledge(myKnowledge);
 		verify(commentServiceImpl).findByKnowledge(myKnowledge);
 	}
-
+	
 }
