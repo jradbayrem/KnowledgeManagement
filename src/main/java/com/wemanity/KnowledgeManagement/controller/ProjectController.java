@@ -25,7 +25,9 @@ public class ProjectController {
 		this.projectService = projectServiceImpl;
 	}
 
-	public ResponseEntity<Project> createProject(Project project) {
-		return null;
+	@RequestMapping(value = "/createProject", method = RequestMethod.POST)
+	public ResponseEntity<Project> createProject(@RequestBody Project project) {
+		project = this.projectService.save(project);
+		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 }
