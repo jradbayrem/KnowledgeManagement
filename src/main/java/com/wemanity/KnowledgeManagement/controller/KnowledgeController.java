@@ -56,8 +56,10 @@ public class KnowledgeController {
 		return new ResponseEntity<>(knowledge, HttpStatus.OK);
 	}
 	
-	public ResponseEntity<List<Knowledge>> getByUserCreator( User user) {
-		return null;
+	@RequestMapping(value = "/knowledgesByUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Knowledge>> getByUserCreator(@RequestBody User user) {
+		List<Knowledge> knowledges = this.knowledgeService.findByUserCreator(user);
+		return new ResponseEntity<>(knowledges, HttpStatus.OK);
 	}
 
 }
