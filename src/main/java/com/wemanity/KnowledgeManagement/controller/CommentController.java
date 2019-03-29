@@ -47,7 +47,9 @@ public class CommentController {
 		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
 	}
 	
-	public ResponseEntity<Comment> updateComment(Comment comment) {
-		return null;
+	@RequestMapping(value = "/updateComment", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Comment> updateComment(@RequestBody Comment comment) {
+		comment = this.commentService.update(comment);
+		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
 	}
 }
