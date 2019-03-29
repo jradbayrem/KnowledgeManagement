@@ -2,6 +2,7 @@ package com.wemanity.KnowledgeManagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,9 @@ public class ProjectController {
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 	
-	public ResponseEntity<Project> updateProject(Project project) {
-		return null;
+	@RequestMapping(value = "/updateProject", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Project> updateProject(@RequestBody Project project) {
+		project = this.projectService.update(project);
+		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 }
