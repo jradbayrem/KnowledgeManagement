@@ -24,9 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wemanity.KnowledgeManagement.controller.KnowledgeController;
-import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
-import com.wemanity.KnowledgeManagement.entities.Project;
 import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
 
 @RunWith(SpringRunner.class)
@@ -126,6 +124,28 @@ public class KnowledgeControllerTest {
 				"--------------- Executing should_use_findAll_when_getAllKnowledge_is_called test Of KnowledgeControllerTest ---------------");
 		knowledgeController.getAllKnowledges();
 		verify(knowledgeServiceImpl).findAll();
+	}
+	
+	@Test
+	public void should_have_200_status_when_getKnowledgeById_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_getKnowledgeById_is_called test Of KnowledgeControllerTest ---------------");
+		try {
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/knowledgesById").accept(MediaType.APPLICATION_JSON_VALUE))
+					.andReturn();
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_findAll_when_getKnowledgeById_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_findAll_when_getKnowledgeById_is_called test Of KnowledgeControllerTest ---------------");
+		knowledgeController.getKnowledgesById(1);
+		verify(knowledgeServiceImpl).findById(1);
 	}
 
 }
