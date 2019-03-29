@@ -1,5 +1,6 @@
 package com.wemanity.KnowledgeManagement.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wemanity.KnowledgeManagement.dto.CommentDto;
+import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
+import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.services.IKnowledgeService;
 import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
 
@@ -40,8 +44,10 @@ public class KnowledgeController {
 		return new ResponseEntity<Knowledge>(knowledge, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/knowledges", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Knowledge>> getAllKnowledges() {
-		return null;
+		List<Knowledge> knowledges = this.knowledgeService.findAll();
+		return new ResponseEntity<>(knowledges, HttpStatus.OK);
 	}
 
 }
