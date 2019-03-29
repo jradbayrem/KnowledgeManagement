@@ -24,7 +24,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wemanity.KnowledgeManagement.controller.ProjectController;
-import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Project;
 import com.wemanity.KnowledgeManagement.services.impl.ProjectServiceImpl;
 
@@ -77,5 +76,31 @@ public class ProjectControllerTest {
 		Project myProject = new Project();
 		projectController.createProject(myProject);
 		verify(projectServiceImpl).save(myProject);
+	}
+	
+	@Test
+	public void should_have_200_status_when_updateProject_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_updateProject_is_called test Of ProjectControllerTest ---------------");
+		try {
+			Project myProject = new Project(1,"myTitle","myBusinessField","myCustomer",null,new Date());
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(myProject);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/updateProject")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_update_when_updateProject_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_update_when_updateProject_is_called test Of ProjectControllerTest ---------------");
+		Project myProject = new Project();
+		projectController.updateProject(myProject);
+		verify(projectServiceImpl).update(myProject);
 	}
 }

@@ -30,4 +30,8 @@ public class ProjectController {
 		project = this.projectService.save(project);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
+	
+	public ResponseEntity<Project> updateProject(Project project) {
+		return null;
+	}
 }
