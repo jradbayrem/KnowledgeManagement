@@ -42,7 +42,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> updateUser(User user) {
+	public ResponseEntity<User> updateUser(@RequestBody User user) {
 		userService.update(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
