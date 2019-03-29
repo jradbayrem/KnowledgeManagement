@@ -79,5 +79,31 @@ public class KnowledgeControllerTest {
 		knowledgeController.createKnowledge(myKnowledge);
 		verify(knowledgeServiceImpl).save(myKnowledge);
 	}
+	
+	@Test
+	public void should_have_200_status_when_updateKnowledge_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_updateKnowledge_is_called test Of KnowledgeControllerTest ---------------");
+		try {
+			Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext", null, "myLangage", "endType", null, null, new Date());
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(myKnowledge);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/createKnowledge")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_update_when_updateKnowledge_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_update_when_updateKnowledge_is_called test Of KnowledgeControllerTest ---------------");
+		Knowledge myKnowledge = new Knowledge();
+		knowledgeController.updateKnowledge(myKnowledge);
+		verify(knowledgeServiceImpl).update(myKnowledge);
+	}
 
 }

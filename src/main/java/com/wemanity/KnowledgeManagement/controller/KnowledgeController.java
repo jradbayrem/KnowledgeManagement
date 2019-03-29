@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.services.IKnowledgeService;
 import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
@@ -30,6 +29,10 @@ public class KnowledgeController {
 	public ResponseEntity<Knowledge> createKnowledge(@RequestBody Knowledge knowledge) {
 		knowledge = this.knowledgeService.save(knowledge);
 		return new ResponseEntity<Knowledge>(knowledge, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<Knowledge> updateKnowledge( Knowledge knowledge) {
+		return null;
 	}
 
 }
