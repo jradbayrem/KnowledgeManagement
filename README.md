@@ -9,7 +9,15 @@ The difference between StackOverFlow (Or any others platform) and this applicati
 
 In that way you can give and get a hand in a more **efficient** and secured way (You don't have to put your source code on the internet) ;)
 
-This repository contain the Backend part of the application
+The application features are:
+
+- Share a Knowledge (Can be a hurdle that you are meeting or something that you resolved) related to a certain project and customer.
+- Users can interact about a Knowledge with comments
+- Manage Users
+- Manage Projects
+- Manage Customers
+
+This repository contain the Backend part of the application and offer a restful API.
 
 ## Getting Started
 
