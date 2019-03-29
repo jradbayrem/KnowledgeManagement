@@ -1,11 +1,15 @@
 package com.wemanity.KnowledgeManagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.services.IKnowledgeService;
 import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
@@ -22,8 +26,10 @@ public class KnowledgeController {
 		this.knowledgeService = knowledgeServiceImpl;
 	}
 
-	public ResponseEntity<Knowledge> createKnowledge(Knowledge knowledge) {
-		return null;
+	@RequestMapping(value = "/createKnowledge", method = RequestMethod.POST)
+	public ResponseEntity<Knowledge> createKnowledge(@RequestBody Knowledge knowledge) {
+		knowledge = this.knowledgeService.save(knowledge);
+		return new ResponseEntity<Knowledge>(knowledge, HttpStatus.OK);
 	}
 
 }
