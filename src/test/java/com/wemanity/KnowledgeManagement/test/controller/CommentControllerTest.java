@@ -110,7 +110,7 @@ public class CommentControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_updateComment_is_called test Of CommentControllerTest ---------------");
 		try {
-			Comment myComment = new Comment(1,"myTitle","myContent",new User(),new Date());
+			Comment myComment = new Comment(1,"myTitle","myContent",null,new Date());
 			ObjectMapper objectMapper = new ObjectMapper();
 			String inputJson = objectMapper.writeValueAsString(myComment);
 			MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/updateComment")
