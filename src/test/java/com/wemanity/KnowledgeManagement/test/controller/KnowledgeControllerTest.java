@@ -105,5 +105,27 @@ public class KnowledgeControllerTest {
 		knowledgeController.updateKnowledge(myKnowledge);
 		verify(knowledgeServiceImpl).update(myKnowledge);
 	}
+	
+	@Test
+	public void should_have_200_status_when_getAllKnowledge_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_getAllKnowledge_is_called test Of KnowledgeControllerTest ---------------");
+		try {
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/knowledges").accept(MediaType.APPLICATION_JSON_VALUE))
+					.andReturn();
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_findAll_when_getAllKnowledge_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_findAll_when_getAllKnowledge_is_called test Of KnowledgeControllerTest ---------------");
+		knowledgeController.getAllKnowledges();
+		verify(knowledgeServiceImpl).findAll();
+	}
 
 }
