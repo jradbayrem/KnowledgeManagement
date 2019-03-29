@@ -38,7 +38,9 @@ public class ProjectController {
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 	
-	public ResponseEntity<Project> getProjectById(Integer id) {
-		return null;
+	@RequestMapping(value = "/getProjectById", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Project> getProjectById(@RequestBody Integer id) {
+		Project project = this.projectService.findById(id);
+		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 }
