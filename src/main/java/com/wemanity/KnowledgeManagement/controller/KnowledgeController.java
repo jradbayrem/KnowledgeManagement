@@ -55,5 +55,9 @@ public class KnowledgeController {
 		Knowledge knowledge = this.knowledgeService.findById(id);
 		return new ResponseEntity<>(knowledge, HttpStatus.OK);
 	}
+	
+	public ResponseEntity<List<Knowledge>> getByUserCreator( User user) {
+		return null;
+	}
 
 }

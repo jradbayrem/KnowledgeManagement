@@ -27,6 +27,7 @@ import com.wemanity.KnowledgeManagement.controller.KnowledgeController;
 import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.entities.Project;
+import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
 
 @RunWith(SpringRunner.class)
@@ -154,6 +155,35 @@ public class KnowledgeControllerTest {
 				"--------------- Executing should_use_findAll_when_getKnowledgeById_is_called test Of KnowledgeControllerTest ---------------");
 		knowledgeController.getKnowledgesById(1);
 		verify(knowledgeServiceImpl).findById(1);
+	}
+	
+	
+	@Test
+	public void should_have_200_status_when_getByUserCreator_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_getByUserCreator_is_called test Of KnowledgeControllerTest ---------------");
+		try {
+			User myUser = new User(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail",
+					false, null, new Date());
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(myUser);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/knowledgesByUser")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_findAll_when_getByUserCreator_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_findAll_when_getByUserCreator_is_called test Of KnowledgeControllerTest ---------------");
+		User myUser = new User();
+		knowledgeController.getByUserCreator(myUser);
+		verify(knowledgeServiceImpl).findByUserCreator(myUser);
 	}
 
 }
