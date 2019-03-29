@@ -111,7 +111,7 @@ public class ProjectControllerTest {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			String inputJson = objectMapper.writeValueAsString(1);
-			mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/getProjectById")
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/getProjectById")
 					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
