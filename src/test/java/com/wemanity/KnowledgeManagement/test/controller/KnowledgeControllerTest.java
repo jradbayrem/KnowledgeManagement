@@ -59,8 +59,7 @@ public class KnowledgeControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_createKnowledge_is_called test Of KnowledgeControllerTest ---------------");
 		try {
-			Project myProject = new Project(1,"myProject","myBusinessField","myCustomer",null,null);
-			Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext", myProject, "myLangage", "endType", null, null, new Date());
+			Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext", null, "myLangage", "endType", null, null, new Date());
 			ObjectMapper objectMapper = new ObjectMapper();
 			String inputJson = objectMapper.writeValueAsString(myKnowledge);
 			mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri + "/createKnowledge")
