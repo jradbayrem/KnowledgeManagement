@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wemanity.KnowledgeManagement.dto.CommentDto;
 import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
-import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.services.ICommentService;
 import com.wemanity.KnowledgeManagement.services.impl.CommentServiceImpl;
 
@@ -46,5 +45,9 @@ public class CommentController {
 	public ResponseEntity<Comment> createComment(Comment comment) {
 		comment = this.commentService.save(comment);
 		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<Comment> updateComment(Comment comment) {
+		return null;
 	}
 }

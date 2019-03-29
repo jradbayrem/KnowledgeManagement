@@ -105,5 +105,30 @@ public class CommentControllerTest {
 		verify(commentServiceImpl).save(myComment);
 	}
 
+	@Test
+	public void should_have_200_status_when_updateComment_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_updateComment_is_called test Of CommentControllerTest ---------------");
+		try {
+			Comment myComment = new Comment(1,"myTitle","myContent",new User(),new Date());
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(myComment);
+			MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/updateComment")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_update_when_updateComment_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_update_when_updateComment_is_called test Of CommentControllerTest ---------------");
+		Comment myComment = new Comment();
+		commentController.updateComment(myComment);
+		verify(commentServiceImpl).update(myComment);
+	}
 
 }
