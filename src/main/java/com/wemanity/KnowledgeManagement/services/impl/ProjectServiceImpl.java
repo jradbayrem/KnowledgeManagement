@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.wemanity.KnowledgeManagement.dto.ProjectDto;
 import com.wemanity.KnowledgeManagement.entities.Project;
@@ -11,6 +12,7 @@ import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.repositories.IProjectRepository;
 import com.wemanity.KnowledgeManagement.services.IProjectService;
 
+@Service
 public class ProjectServiceImpl implements IProjectService {
 
 	@Autowired
