@@ -178,12 +178,39 @@ public class KnowledgeControllerTest {
 	}
 
 	@Test
-	public void should_use_findAll_when_getByUserCreator_is_called() {
+	public void should_use_findByUserCreator_when_getByUserCreator_is_called() {
 		LOGGER.info(
-				"--------------- Executing should_use_findAll_when_getByUserCreator_is_called test Of KnowledgeControllerTest ---------------");
+				"--------------- Executing should_use_findByUserCreator_when_getByUserCreator_is_called test Of KnowledgeControllerTest ---------------");
 		User myUser = new User();
 		knowledgeController.getByUserCreator(myUser);
 		verify(knowledgeServiceImpl).findByUserCreator(myUser);
+	}
+	
+	@Test
+	public void should_have_200_status_when_getByRelatedProject_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_getByRelatedProject_is_called test Of KnowledgeControllerTest ---------------");
+		try {
+			Project myProject = new Project(1,"myTitle","myBusinessField","myCustomer",null,null);
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(myProject);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/knowledgesByProject")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_findByRelatedProject_when_getByRelatedProject_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_findByRelatedProject_when_getByRelatedProject_is_called test Of KnowledgeControllerTest ---------------");
+		Project myProject = new Project();
+		knowledgeController.getByRelatedProject(myProject);
+		verify(knowledgeServiceImpl).findByRelatedProject(myProject);
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.wemanity.KnowledgeManagement.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wemanity.KnowledgeManagement.dto.CommentDto;
-import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
+import com.wemanity.KnowledgeManagement.entities.Project;
 import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.services.IKnowledgeService;
 import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
@@ -60,6 +58,10 @@ public class KnowledgeController {
 	public ResponseEntity<List<Knowledge>> getByUserCreator(@RequestBody User user) {
 		List<Knowledge> knowledges = this.knowledgeService.findByUserCreator(user);
 		return new ResponseEntity<>(knowledges, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<List<Knowledge>> getByRelatedProject( Project project) {
+		return null;
 	}
 
 }
