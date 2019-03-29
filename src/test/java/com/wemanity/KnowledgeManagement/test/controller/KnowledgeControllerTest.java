@@ -24,7 +24,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wemanity.KnowledgeManagement.controller.KnowledgeController;
+import com.wemanity.KnowledgeManagement.entities.Comment;
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
+import com.wemanity.KnowledgeManagement.entities.Project;
 import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
 
 @RunWith(SpringRunner.class)
@@ -51,13 +53,14 @@ public class KnowledgeControllerTest {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		knowledgeController = new KnowledgeController(knowledgeServiceImpl);
 	}
-	
+
 	@Test
 	public void should_have_200_status_when_createKnowledge_is_called() {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_createKnowledge_is_called test Of KnowledgeControllerTest ---------------");
 		try {
-			Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext", null, "myLangage", "endType", null, null, new Date());
+			Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext", null, "myLangage",
+					"endType", null, null, new Date());
 			ObjectMapper objectMapper = new ObjectMapper();
 			String inputJson = objectMapper.writeValueAsString(myKnowledge);
 			mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri + "/createKnowledge")
@@ -77,13 +80,14 @@ public class KnowledgeControllerTest {
 		knowledgeController.createKnowledge(myKnowledge);
 		verify(knowledgeServiceImpl).save(myKnowledge);
 	}
-	
+
 	@Test
 	public void should_have_200_status_when_updateKnowledge_is_called() {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_updateKnowledge_is_called test Of KnowledgeControllerTest ---------------");
 		try {
-			Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext", null, "myLangage", "endType", null, null, new Date());
+			Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext", null, "myLangage",
+					"endType", null, null, new Date());
 			ObjectMapper objectMapper = new ObjectMapper();
 			String inputJson = objectMapper.writeValueAsString(myKnowledge);
 			mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/updateKnowledge")
@@ -103,13 +107,14 @@ public class KnowledgeControllerTest {
 		knowledgeController.updateKnowledge(myKnowledge);
 		verify(knowledgeServiceImpl).update(myKnowledge);
 	}
-	
+
 	@Test
 	public void should_have_200_status_when_getAllKnowledge_is_called() {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_getAllKnowledge_is_called test Of KnowledgeControllerTest ---------------");
 		try {
-			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/knowledges").accept(MediaType.APPLICATION_JSON_VALUE))
+			mvcResult = mvc
+					.perform(MockMvcRequestBuilders.get(uri + "/knowledges").accept(MediaType.APPLICATION_JSON_VALUE))
 					.andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
@@ -125,14 +130,17 @@ public class KnowledgeControllerTest {
 		knowledgeController.getAllKnowledges();
 		verify(knowledgeServiceImpl).findAll();
 	}
-	
+
 	@Test
 	public void should_have_200_status_when_getKnowledgeById_is_called() {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_getKnowledgeById_is_called test Of KnowledgeControllerTest ---------------");
 		try {
-			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/knowledgesById").accept(MediaType.APPLICATION_JSON_VALUE))
-					.andReturn();
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(1);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/knowledgesById")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
 			LOGGER.error("An exception occured");
