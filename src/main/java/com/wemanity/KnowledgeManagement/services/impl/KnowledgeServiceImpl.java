@@ -3,6 +3,7 @@ package com.wemanity.KnowledgeManagement.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.entities.Project;
@@ -10,6 +11,7 @@ import com.wemanity.KnowledgeManagement.entities.User;
 import com.wemanity.KnowledgeManagement.repositories.IKnowledgeRepository;
 import com.wemanity.KnowledgeManagement.services.IKnowledgeService;
 
+@Service
 public class KnowledgeServiceImpl implements IKnowledgeService {
 
 	@Autowired
