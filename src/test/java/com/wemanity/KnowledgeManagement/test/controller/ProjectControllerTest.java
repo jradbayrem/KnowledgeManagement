@@ -103,4 +103,28 @@ public class ProjectControllerTest {
 		projectController.updateProject(myProject);
 		verify(projectServiceImpl).update(myProject);
 	}
+	
+	@Test
+	public void should_have_200_status_when_getProjectById_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_getProjectById_is_called test Of ProjectControllerTest ---------------");
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			String inputJson = objectMapper.writeValueAsString(1);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/getProjectById")
+					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_search_by_id_when_getProjectById_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_search_by_id_when_getProjectById_is_called test Of ProjectControllerTest ---------------");
+		projectController.getProjectById(1);
+		verify(projectServiceImpl).findById(1);
+	}
 }

@@ -37,4 +37,8 @@ public class ProjectController {
 		project = this.projectService.update(project);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
+	
+	public ResponseEntity<Project> getProjectById(Integer id) {
+		return null;
+	}
 }
