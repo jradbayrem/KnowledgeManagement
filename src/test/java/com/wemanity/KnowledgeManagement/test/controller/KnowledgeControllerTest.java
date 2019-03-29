@@ -88,7 +88,7 @@ public class KnowledgeControllerTest {
 			Knowledge myKnowledge = new Knowledge(1, "myTitle", "myDescription", "myContext", null, "myLangage", "endType", null, null, new Date());
 			ObjectMapper objectMapper = new ObjectMapper();
 			String inputJson = objectMapper.writeValueAsString(myKnowledge);
-			mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/createKnowledge")
+			mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/updateKnowledge")
 					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
