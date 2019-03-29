@@ -42,7 +42,7 @@ public class CommentController {
 	}
 
 	@RequestMapping(value = "/createComment", method = RequestMethod.POST)
-	public ResponseEntity<Comment> createComment(Comment comment) {
+	public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
 		comment = this.commentService.save(comment);
 		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
 	}
