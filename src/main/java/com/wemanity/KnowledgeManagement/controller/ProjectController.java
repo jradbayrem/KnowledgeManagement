@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,5 +44,9 @@ public class ProjectController {
 	public ResponseEntity<Project> getProjectById(@RequestBody Integer id) {
 		Project project = this.projectService.findById(id);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<List<Project>> getAllProjects() {
+		return null;
 	}
 }

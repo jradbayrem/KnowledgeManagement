@@ -127,4 +127,26 @@ public class ProjectControllerTest {
 		projectController.getProjectById(1);
 		verify(projectServiceImpl).findById(1);
 	}
+	
+	@Test
+	public void should_have_200_status_when_getAllProjects_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_have_200_status_when_getAllProjects_is_called test Of ProjectControllerTest ---------------");
+		try {
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/projects")
+					.contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+			assertEquals(200, mvcResult.getResponse().getStatus());
+		} catch (Exception e) {
+			LOGGER.error("An exception occured");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void should_use_search_all_when_getAllProjects_is_called() {
+		LOGGER.info(
+				"--------------- Executing should_use_search_all_when_getAllProjects_is_called test Of ProjectControllerTest ---------------");
+		projectController.getAllProjects();
+		verify(projectServiceImpl).findAll();
+	}
 }
