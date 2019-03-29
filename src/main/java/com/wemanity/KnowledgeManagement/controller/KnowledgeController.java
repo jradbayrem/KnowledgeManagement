@@ -60,8 +60,10 @@ public class KnowledgeController {
 		return new ResponseEntity<>(knowledges, HttpStatus.OK);
 	}
 	
-	public ResponseEntity<List<Knowledge>> getByRelatedProject( Project project) {
-		return null;
+	@RequestMapping(value = "/knowledgesByProject", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Knowledge>> getByRelatedProject(@RequestBody Project project) {
+		List<Knowledge> knowledges = this.knowledgeService.findByRelatedProject(project);
+		return new ResponseEntity<>(knowledges, HttpStatus.OK);
 	}
 
 }
