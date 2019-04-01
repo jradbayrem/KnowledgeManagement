@@ -46,7 +46,9 @@ public class ProjectController {
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/projects", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Project>> getAllProjects() {
-		return null;
+		List<Project> projects = this.projectService.findAll();
+		return new ResponseEntity<List<Project>>(projects, HttpStatus.OK);
 	}
 }
