@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Date;
 
+import com.wemanity.KnowledgeManagement.dto.CommentDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -125,10 +126,10 @@ public class CommentControllerTest {
 	@Test
 	public void should_use_update_when_updateComment_is_called() {
 		LOGGER.info(
-				"--------------- Executing should_use_update_when_updateComment_is_called test Of CommentControllerTest ---------------");
-		Comment myComment = new Comment();
-		commentController.updateComment(myComment);
-		verify(commentServiceImpl).update(myComment);
+				"--------------- Executing  test Of CommentControllerTest ---------------");
+		CommentDto myCommentDto = new CommentDto();
+		commentController.updateComment(myCommentDto);
+		verify(commentServiceImpl).update(commentController.getOperationComment());
 	}
 
 }

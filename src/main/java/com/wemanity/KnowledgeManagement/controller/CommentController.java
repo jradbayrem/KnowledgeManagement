@@ -23,6 +23,8 @@ public class CommentController {
 	@Autowired
 	ICommentService commentService;
 
+	private Comment operationComment;
+
 	public CommentController(CommentServiceImpl commentServiceImpl) {
 		this.commentService = commentServiceImpl;
 	}
@@ -43,9 +45,18 @@ public class CommentController {
 		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/updateComment", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Comment> updateComment(@RequestBody Comment comment) {
-		comment = this.commentService.update(comment);
-		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
+	@PutMapping (value = "/updateComment")
+	public CommentDto updateComment(@RequestBody CommentDto commentDto) {
+        operationComment = new Comment(commentDto);
+        this.commentService.update(operationComment);
+		return commentDto;
 	}
+
+    public Comment getOperationComment() {
+        return operationComment;
+    }
+
+    public void setOperationComment(Comment operationComment) {
+        this.operationComment = operationComment;
+    }
 }

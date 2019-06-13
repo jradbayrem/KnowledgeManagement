@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.entities;
 
+import com.wemanity.KnowledgeManagement.dto.CommentDto;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -34,6 +36,15 @@ public class Comment {
 		this.content = content;
 		this.userCreator = userCreator;
 		this.lastModified = lastModified;
+	}
+
+	public Comment(CommentDto commentDto){
+		super();
+		this.id = commentDto.getId();
+		this.title = commentDto.getTitle();
+		this.content = commentDto.getContent();
+		this.userCreator = new User(commentDto.getUserCreator());
+
 	}
 
 	public Comment() {

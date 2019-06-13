@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.entities;
 
+import com.wemanity.KnowledgeManagement.dto.UserDto;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 
 @Entity
 public class User {
@@ -51,6 +54,16 @@ public class User {
 
 	public User() {
 
+	}
+
+	public User(UserDto userDto){
+		this.id = userDto.getId();
+		this.login = userDto.getLogin();
+		this.password = userDto.getPassword();
+		this.firstName = userDto.getFirstName();
+		this.lastName = userDto.getLastName();
+		this.departement = userDto.getDepartement();
+		this.email = userDto.getEmail();
 	}
 
 	public Integer getId() {

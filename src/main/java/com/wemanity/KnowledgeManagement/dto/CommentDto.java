@@ -33,6 +33,8 @@ public class CommentDto {
 
 	public CommentDto() {
 
+		this.userCreator = new UserDto();
+		this.knowledge = new KnowledgeDto();
 	}
 
 	public Integer getId() {
