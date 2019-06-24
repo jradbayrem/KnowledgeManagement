@@ -3,15 +3,12 @@ package com.wemanity.KnowledgeManagement.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wemanity.KnowledgeManagement.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.wemanity.KnowledgeManagement.dto.UserDto;
 import com.wemanity.KnowledgeManagement.entities.User;
@@ -26,31 +23,33 @@ public class UserController {
 	@Autowired
 	IUserService userService;
 
+	@Autowired
+	UserMapper userMapper;
 	public UserController(UserServiceImpl userServiceImpl) {
 		userService = userServiceImpl;
 	}
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public ResponseEntity<List<UserDto>> getAllUsers() {
-		List<User> users = new ArrayList<>();
-		users = userService.findAll();
-		List<UserDto> userDtoList = new ArrayList<UserDto>();
-		for (User currentUser : users) {
-			userDtoList.add(new UserDto(currentUser));
-		}
-		return new ResponseEntity<>(userDtoList, HttpStatus.OK);
+	@GetMapping(value = "/users")
+	public List<UserDto> getAllUsers() {
+		List<User> users = userService.findAll();
+		List<UserDto> userDtoList = new ArrayList();
+		users.parallelStream().forEach(
+				currentUser -> {
+					userDtoList.add(userMapper.userToUserDto(currentUser));
+				}
+		);
+		return userDtoList;
 	}
 
-	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> updateUser(@RequestBody User user) {
-		userService.update(user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	@PutMapping(value = "/updateUser")
+	public void updateUser(@RequestBody UserDto userDto) {
+		User user = userService.refreshAndMapUserFromUserDto(userDto);
+	    userService.update(user);
 	}
 
-	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
-	public ResponseEntity<User> createUser(@RequestBody User user) {
-			userService.save(user);
-			return new ResponseEntity<User>(user, HttpStatus.OK);
+	@PostMapping(value = "/createUser")
+	public UserDto createUser(@RequestBody UserDto userDto) {
+			return userMapper.userToUserDto(userService.save(new User(userDto)));
 	}
 	
 }

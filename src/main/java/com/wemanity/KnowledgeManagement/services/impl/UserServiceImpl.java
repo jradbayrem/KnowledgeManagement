@@ -34,7 +34,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	@Override
 	public User findById(Integer id) {
-		return userRepository.findById(id).orElse(null);
+		return userRepository.findById(id).orElse(new User());
 	}
 	@Override
 	public List<User> findAll() {
@@ -46,7 +46,20 @@ public class UserServiceImpl implements IUserService {
 	}
 	@Override
 	public User getUserFromUserDto(UserDto userDto) {
-		return new User(userDto.getId(), userDto.getLogin(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(), userDto.getDepartement(), userDto.getEmail(), true, new User(), new Date());
+		return new User(userDto);
 	}
+
+	@Override
+	public User refreshAndMapUserFromUserDto(UserDto userDto) {
+		User user = this.findById(userDto.getId());
+		user.setLogin(userDto.getLogin());
+		user.setDepartement(userDto.getDepartement());
+		user.setFirstName(userDto.getFirstName());
+		user.setLastName(userDto.getLastName());
+		user.setPassword(userDto.getPassword());
+		user.setEmail(userDto.getEmail());
+		return user;
+	}
+
 
 }

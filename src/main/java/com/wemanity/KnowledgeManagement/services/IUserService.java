@@ -7,18 +7,20 @@ import com.wemanity.KnowledgeManagement.entities.User;
 
 public interface IUserService {
 	
-	public User save(User user);
+	 User save(User user);
 	
-	public User update(User user);
+	 User update(User user);
 	
-	public void delete(User user);
+	 void delete(User user);
 	
-	public User findById(Integer id);
+	 User findById(Integer id);
 	
-	public List<User> findAll();
+	 List<User> findAll();
 	
-	public User findByFirstNameAndLastName(String firstName, String lastName);
+	 User findByFirstNameAndLastName(String firstName, String lastName);
 	
-	public User getUserFromUserDto(UserDto userDto);
+	 User getUserFromUserDto(UserDto userDto);
+
+	 User refreshAndMapUserFromUserDto(UserDto userDto);
 
 }

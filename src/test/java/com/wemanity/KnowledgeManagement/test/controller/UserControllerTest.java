@@ -1,15 +1,22 @@
 package com.wemanity.KnowledgeManagement.test.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Date;
 
+import com.wemanity.KnowledgeManagement.dto.UserDto;
+import com.wemanity.KnowledgeManagement.mapper.UserMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +44,15 @@ public class UserControllerTest {
 	private MockMvc mvc;
 	@Autowired
 	WebApplicationContext webApplicationContext;
-	@Mock
-	UserServiceImpl userServiceImpl;
-	UserController userController;
+
+	@InjectMocks
+   private UserController userController;
+
+    @Mock
+	private UserServiceImpl userServiceImpl;
+    @Mock
+    private UserMapper userMapper;
+
 
 	public UserControllerTest() {
 		this.uri = "/api";
@@ -49,7 +62,7 @@ public class UserControllerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		userController = new UserController(userServiceImpl);
+		when(userServiceImpl.refreshAndMapUserFromUserDto(any(UserDto.class))).thenReturn(new User());
 	}
 
 	@Test
@@ -79,10 +92,9 @@ public class UserControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_updateUser_is_called test Of UserServiceImplTest ---------------");
 		try {
-			User myUser = new User(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail",
-					false, null, new Date());
+			UserDto userDto = new UserDto();
 			ObjectMapper objectMapper = new ObjectMapper();
-			String inputJson = objectMapper.writeValueAsString(myUser);
+			String inputJson = objectMapper.writeValueAsString(userDto);
 			MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/updateUser")
 					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
@@ -96,10 +108,9 @@ public class UserControllerTest {
 	public void should_use_update_when_updateUser_is_called() {
 		LOGGER.info(
 				"--------------- Executing should_use_update_when_updateUser_is_called test Of UserServiceImplTest ---------------");
-		User myUser = new User(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail",
-				false, null, new Date());
-		userController.updateUser(myUser);
-		verify(userServiceImpl).update(myUser);
+		UserDto userDto = new UserDto();
+		userController.updateUser(userDto);
+		verify(userServiceImpl).update(any(User.class));
 	}
 
 	@Test
@@ -107,10 +118,9 @@ public class UserControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_createUser_is_called test Of UserServiceImplTest ---------------");
 		try {
-			User myUser = new User(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail",
-					false, null, new Date());
+			UserDto userDto = new UserDto();
 			ObjectMapper objectMapper = new ObjectMapper();
-			String inputJson = objectMapper.writeValueAsString(myUser);
+			String inputJson = objectMapper.writeValueAsString(userDto);
 			mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri + "/createUser")
 					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
@@ -124,9 +134,10 @@ public class UserControllerTest {
 	public void should_use_save_when_createUser_is_called() {
 		LOGGER.info(
 				"--------------- Executing should_use_save_when_createUser_is_called test Of UserServiceImplTest ---------------");
-		User myUser = new User(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail",
-				false, null, new Date());
-		userController.createUser(myUser);
-		verify(userServiceImpl).save(myUser);
+		UserDto userDto = new UserDto();
+        doReturn(new UserDto()).when(userMapper).userToUserDto(any(User.class));
+
+        userController.createUser(userDto);
+		verify(userServiceImpl).save(any(User.class));
 	}
 }

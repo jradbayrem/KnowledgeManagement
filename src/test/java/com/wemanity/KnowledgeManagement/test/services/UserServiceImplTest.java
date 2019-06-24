@@ -62,7 +62,7 @@ public class UserServiceImplTest {
 	@Test
 	public void should_search_by_id_when_findById_is_called() {
 		LOGGER.info("--------------- Executing should_search_by_id_when_findById_is_called test Of UserServiceImplTest ---------------");
-		Integer id = new Integer(1);
+		Integer id =1;
 		userService.findById(id);
 		Mockito.verify(userRepository).findById(id);
 	}
@@ -87,7 +87,7 @@ public class UserServiceImplTest {
 	public void should_get_a_not_null_user_when_getUserFromUserDto_is_called() {
 		LOGGER.info("--------------- Executing should_get_a_not_null_user_when_getUserFromUserDto_is_called test Of UserServiceImplTest ---------------");
 		UserDto userDto = new UserDto(1, "myLogin", "myPassword", "myFirstName", "myLastName", "myDepartement", "myEmail");
-		User myUser = userService.getUserFromUserDto(userDto);
+		User myUser = new User(userDto);
 		assertNotNull(myUser);
 		assertNotNull(myUser.getId());
 		assertEquals(myUser.getId(),userDto.getId());
@@ -104,7 +104,6 @@ public class UserServiceImplTest {
 		assertNotNull(myUser.getEmail());
 		assertEquals(myUser.getEmail(),userDto.getEmail());
 		assertNotNull(myUser.getLastModified());
-		assertNotNull(myUser.getUserCreator());
 
 
 	}
