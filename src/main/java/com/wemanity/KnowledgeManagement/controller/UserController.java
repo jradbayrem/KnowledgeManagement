@@ -41,10 +41,17 @@ public class UserController {
 		return userDtoList;
 	}
 
+
 	@PutMapping(value = "/updateUser")
 	public void updateUser(@RequestBody UserDto userDto) {
-		User user = userService.refreshAndMapUserFromUserDto(userDto);
-	    userService.update(user);
+		User user ;
+		try {
+			user = userService.generateUserWithRefreshedDataFromUserDto(userDto);
+			userService.update(user);
+		}catch (Exception e){
+
+			e.printStackTrace();
+		}
 	}
 
 	@PostMapping(value = "/createUser")

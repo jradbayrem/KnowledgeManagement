@@ -62,7 +62,7 @@ public class UserControllerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		when(userServiceImpl.refreshAndMapUserFromUserDto(any(UserDto.class))).thenReturn(new User());
+		when(userServiceImpl.generateUserWithRefreshedDataFromUserDto(any(UserDto.class))).thenReturn(new User());
 	}
 
 	@Test
