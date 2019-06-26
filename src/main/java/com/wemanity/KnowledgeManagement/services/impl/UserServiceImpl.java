@@ -1,9 +1,12 @@
 package com.wemanity.KnowledgeManagement.services.impl;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import com.wemanity.KnowledgeManagement.exceptions.UserRepositoryException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.wemanity.KnowledgeManagement.dto.UserDto;
@@ -22,42 +25,80 @@ public class UserServiceImpl implements IUserService {
 	}
 	@Override
 	public User save(User user) {
-		return  userRepository.save(user);
+		try{
+			user = userRepository.save(user);
+		}catch (UserRepositoryException e){
+			e.printStackTrace();
+		}
+		return  user;
 	}
 	@Override
 	public User update(User user) {
-		return  userRepository.save(user);
+		try{
+			user = userRepository.save(user);
+		}catch (UserRepositoryException e){
+			e.printStackTrace();
+		}
+		return  user;
 	}
 	@Override
 	public void delete(User user) {
-		userRepository.delete(user);
+		try{
+			userRepository.delete(user);
+		}catch (UserRepositoryException e){
+			e.printStackTrace();
+		}
 	}
 	@Override
-	public User findById(Integer id) {
-		return userRepository.findById(id).orElse(new User());
+	public Optional<User> findById(Integer id) {
+		Optional<User> user = Optional.empty();
+		try{
+			user = userRepository.findById(id);
+		}catch (UserRepositoryException e){
+			e.printStackTrace();
+		}
+		return user;
 	}
 	@Override
 	public List<User> findAll() {
-		return userRepository.findAll();
+		List<User> users = new ArrayList();
+		try{
+			users= userRepository.findAll();
+		}catch (UserRepositoryException e){
+			e.printStackTrace();
+		}
+		return users;
 	}
 	@Override
-	public User findByFirstNameAndLastName(String firstName, String lastName) {
-		return userRepository.findFirst1ByFirstNameAndLastName(firstName, lastName);
-	}
-	@Override
-	public User getUserFromUserDto(UserDto userDto) {
-		return new User(userDto);
+	public Optional<User> findByFirstNameAndLastName(String firstName, String lastName) {
+		Optional<User> user = Optional.empty();
+		try {
+			user = Optional.of(userRepository.findFirst1ByFirstNameAndLastName(firstName, lastName));
+		}catch (UserRepositoryException e){
+			e.printStackTrace();
+		}
+
+		return user;
 	}
 
+
 	@Override
-	public User refreshAndMapUserFromUserDto(UserDto userDto) {
-		User user = this.findById(userDto.getId());
-		user.setLogin(userDto.getLogin());
-		user.setDepartement(userDto.getDepartement());
-		user.setFirstName(userDto.getFirstName());
-		user.setLastName(userDto.getLastName());
-		user.setPassword(userDto.getPassword());
-		user.setEmail(userDto.getEmail());
+	public User generateUserWithRefreshedDataFromUserDto(UserDto userDto)  {
+		User user = new User();
+		try {
+			user = this.findById(userDto.getId()).orElseThrow(
+					() -> new UserRepositoryException("User with Id " + userDto.getId() + " not found in DataBase")
+			);
+			user.setLogin(userDto.getLogin());
+			user.setDepartement(userDto.getDepartement());
+			user.setFirstName(userDto.getFirstName());
+			user.setLastName(userDto.getLastName());
+			user.setPassword(userDto.getPassword());
+			user.setEmail(userDto.getEmail());
+
+		}catch (DataAccessException e){
+			e.printStackTrace();
+		}
 		return user;
 	}
 

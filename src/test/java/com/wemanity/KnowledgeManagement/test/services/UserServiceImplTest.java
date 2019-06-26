@@ -2,6 +2,8 @@ package com.wemanity.KnowledgeManagement.test.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -79,6 +81,7 @@ public class UserServiceImplTest {
 		LOGGER.info("--------------- Executing should_search_by_firstname_and_last_name_when_findByFirstNameAndLastName_is_called test Of UserServiceImplTest ---------------");
 		String firstName = "John";
 		String lastName = "Doe";
+		when(userRepository.findFirst1ByFirstNameAndLastName(any(String.class),any(String.class))).thenReturn(new User());
 		userService.findByFirstNameAndLastName(firstName, lastName);
 		Mockito.verify(userRepository).findFirst1ByFirstNameAndLastName(firstName, lastName);
 	}
@@ -103,7 +106,6 @@ public class UserServiceImplTest {
 		assertEquals(myUser.getDepartement(),userDto.getDepartement());
 		assertNotNull(myUser.getEmail());
 		assertEquals(myUser.getEmail(),userDto.getEmail());
-		assertNotNull(myUser.getLastModified());
 
 
 	}

@@ -1,6 +1,7 @@
 package com.wemanity.KnowledgeManagement.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.wemanity.KnowledgeManagement.dto.UserDto;
 import com.wemanity.KnowledgeManagement.entities.User;
@@ -13,14 +14,12 @@ public interface IUserService {
 	
 	 void delete(User user);
 	
-	 User findById(Integer id);
+	 Optional<User> findById(Integer id);
 	
 	 List<User> findAll();
 	
-	 User findByFirstNameAndLastName(String firstName, String lastName);
-	
-	 User getUserFromUserDto(UserDto userDto);
+	 Optional<User> findByFirstNameAndLastName(String firstName, String lastName);
 
-	 User refreshAndMapUserFromUserDto(UserDto userDto);
+	 User generateUserWithRefreshedDataFromUserDto(UserDto userDto);
 
 }
