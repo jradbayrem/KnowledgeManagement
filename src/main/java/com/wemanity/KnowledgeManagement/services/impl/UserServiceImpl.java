@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.wemanity.KnowledgeManagement.exceptions.UserDtoIsNullException;
 import com.wemanity.KnowledgeManagement.exceptions.UserRepositoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -83,8 +84,11 @@ public class UserServiceImpl implements IUserService {
 
 
 	@Override
-	public User generateUserWithRefreshedDataFromUserDto(UserDto userDto)  {
-		User user = new User();
+	public User generateUserWithRefreshedDataFromUserDto(UserDto userDto) throws UserDtoIsNullException {
+		if(userDto == null){
+		    throw new UserDtoIsNullException("The used UserDto is null");
+        }
+	    User user = new User();
 		try {
 			user = this.findById(userDto.getId()).orElseThrow(
 					() -> new UserRepositoryException("User with Id " + userDto.getId() + " not found in DataBase")

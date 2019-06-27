@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.wemanity.KnowledgeManagement.dto.UserDto;
 import com.wemanity.KnowledgeManagement.entities.User;
+import com.wemanity.KnowledgeManagement.exceptions.UserDtoIsNullException;
 
 public interface IUserService {
 	
@@ -20,6 +21,6 @@ public interface IUserService {
 	
 	 Optional<User> findByFirstNameAndLastName(String firstName, String lastName);
 
-	 User generateUserWithRefreshedDataFromUserDto(UserDto userDto);
+	 User generateUserWithRefreshedDataFromUserDto(UserDto userDto) throws UserDtoIsNullException;
 
 }
