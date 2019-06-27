@@ -72,7 +72,7 @@ public class CommentServiceImpl implements ICommentService {
 
     @Override
     public Optional<Comment> findById(Integer id) {
-        return null;
+        return this.commentRepository.findById(id);
     }
 
 
