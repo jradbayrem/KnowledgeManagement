@@ -15,7 +15,6 @@ public interface ICommentService {
 	public void delete(Comment comment);
 	
 	public List<Comment> findByKnowledge(Knowledge knowledge);
-	
-	public Comment getCommentFromCommentDto(CommentDto comment);
+
 
 }

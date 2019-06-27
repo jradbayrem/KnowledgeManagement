@@ -1,8 +1,10 @@
 package com.wemanity.KnowledgeManagement.services.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.wemanity.KnowledgeManagement.exceptions.CommentRepositoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,28 +30,46 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public Comment save(Comment comment) {
-		return this.commentRepository.save(comment);
+		try{
+		comment = this.commentRepository.save(comment);
+		}catch (CommentRepositoryException e){
+			e.printStackTrace();
+		}
+		return comment;
 	}
 
 	@Override
 	public Comment update(Comment comment) {
-		return this.commentRepository.save(comment);
-	}
+		try{
+			comment = this.commentRepository.save(comment);
+		}catch (CommentRepositoryException e){
+			e.printStackTrace();
+		}
+		return comment;	}
 
 	@Override
 	public void delete(Comment comment) {
-		this.commentRepository.delete(comment);
+
+		try{
+			this.commentRepository.delete(comment);
+		}catch (CommentRepositoryException e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public List<Comment> findByKnowledge(Knowledge knowledge) {
-		return this.commentRepository.findByKnowledge(knowledge);
+
+		List<Comment> comments = new ArrayList();
+		try{
+			comments = this.commentRepository.findByKnowledge(knowledge);
+		}catch (CommentRepositoryException e){
+			e.printStackTrace();
+		}
+		return comments;
 	}
 
-	@Override
-	public Comment getCommentFromCommentDto(CommentDto comment) {
-		Comment myComment = new Comment(comment.getId(),comment.getTitle(),comment.getContent(),new User(),new Date());
-		return new Comment(comment.getId(),comment.getTitle(),comment.getContent(),new User(),new Date());
-	}
+
+
 
 }

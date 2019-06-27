@@ -3,8 +3,10 @@ package com.wemanity.KnowledgeManagement.test.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import com.wemanity.KnowledgeManagement.dto.ProjectDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,10 +75,15 @@ public class CommentServiceImplTest {
 	}
 	
 	@Test
-	public void should_get_a_not_null_comment_when_getCommentFromCommentDto_is_called() {
-		LOGGER.info("--------------- Executing should_get_a_not_null_comment_when_getCommentFromCommentDto_is_called test Of CommentServiceImplTest ---------------");
-		CommentDto commentDto = new CommentDto(1, "myTitle", "myContent", new UserDto(), new KnowledgeDto());
-		Comment myComment = commentService.getCommentFromCommentDto(commentDto);
+	public void should_get_a_not_null_comment_when_comment_constructor_for_dto_is_called() {
+		LOGGER.info("--------------- Executing should_get_a_not_null_comment_when_comment_constructor_for_dto_is_called test Of CommentServiceImplTest ---------------");
+	KnowledgeDto knowledgeDto= new KnowledgeDto();
+	knowledgeDto.setRelatedProject(new ProjectDto());
+	knowledgeDto.getRelatedProject().setUserCreator(new UserDto());
+	knowledgeDto.setUserCreator(new UserDto());
+	knowledgeDto.setComments(new ArrayList());
+		CommentDto commentDto = new CommentDto(1, "myTitle", "myContent", new UserDto(), knowledgeDto,new Date());
+		Comment myComment = new Comment(commentDto) ;//= commentService.getCommentFromCommentDto(commentDto);
 		assertNotNull(myComment);
 		assertNotNull(myComment.getId());
 		assertEquals(myComment.getId(),commentDto.getId());
