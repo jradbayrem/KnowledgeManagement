@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.wemanity.KnowledgeManagement.exceptions.CommentDtoIsNullException;
 import com.wemanity.KnowledgeManagement.exceptions.CommentRepositoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,59 +21,83 @@ import com.wemanity.KnowledgeManagement.services.IUserService;
 @Service
 public class CommentServiceImpl implements ICommentService {
 
-	@Autowired
-	ICommentRepository commentRepository;
-	@Autowired
-	IUserService userService;
-	
-	public CommentServiceImpl(ICommentRepository commentRepository) {
-		this.commentRepository = commentRepository;
-	}
+    @Autowired
+    ICommentRepository commentRepository;
+    @Autowired
+    IUserService userService;
 
-	@Override
-	public Comment save(Comment comment) {
-		try{
-		comment = this.commentRepository.save(comment);
-		}catch (CommentRepositoryException e){
-			e.printStackTrace();
-		}
-		return comment;
-	}
+    public CommentServiceImpl(ICommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
-	@Override
-	public Comment update(Comment comment) {
-		try{
-			comment = this.commentRepository.save(comment);
-		}catch (CommentRepositoryException e){
-			e.printStackTrace();
-		}
-		return comment;	}
+    @Override
+    public Comment save(Comment comment) {
+        try {
+            comment = this.commentRepository.save(comment);
+        } catch (CommentRepositoryException e) {
+            e.printStackTrace();
+        }
+        return comment;
+    }
 
-	@Override
-	public void delete(Comment comment) {
+    @Override
+    public Comment update(Comment comment) {
+        try {
+            comment = this.commentRepository.save(comment);
+        } catch (CommentRepositoryException e) {
+            e.printStackTrace();
+        }
+        return comment;
+    }
 
-		try{
-			this.commentRepository.delete(comment);
-		}catch (CommentRepositoryException e){
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void delete(Comment comment) {
 
-	@Override
-	public List<Comment> findByKnowledge(Knowledge knowledge) {
+        try {
+            this.commentRepository.delete(comment);
+        } catch (CommentRepositoryException e) {
+            e.printStackTrace();
+        }
+    }
 
-		List<Comment> comments = new ArrayList();
-		try{
-			comments = this.commentRepository.findByKnowledge(knowledge);
-		}catch (CommentRepositoryException e){
-			e.printStackTrace();
-		}
-		return comments;
-	}
+    @Override
+    public List<Comment> findByKnowledge(Knowledge knowledge) {
+
+        List<Comment> comments = new ArrayList();
+        try {
+            comments = this.commentRepository.findByKnowledge(knowledge);
+        } catch (CommentRepositoryException e) {
+            e.printStackTrace();
+        }
+        return comments;
+    }
 
     @Override
     public Optional<Comment> findById(Integer id) {
         return this.commentRepository.findById(id);
+    }
+
+    @Override
+    public Comment generateCommentWithRefreshedDataFromCommentDto(CommentDto commentDto) throws
+            CommentDtoIsNullException {
+
+        if (commentDto == null) {
+            throw new CommentDtoIsNullException("The used CommentDto is null");
+        }
+        Comment comment = new Comment();
+        try {
+            comment = this.commentRepository.findById(commentDto.getId()).orElseThrow(() -> new
+                    CommentRepositoryException("Comment with Id " + commentDto.getId() + " not founds "));
+            comment.setContent(commentDto.getContent());
+            comment.setTitle(commentDto.getTitle());
+            comment.setLastModified(commentDto.getLastModified());
+
+        } catch (CommentRepositoryException e) {
+            e.printStackTrace();
+        }
+
+
+        return comment;
     }
 
 

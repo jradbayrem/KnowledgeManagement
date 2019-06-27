@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.wemanity.KnowledgeManagement.dto.ProjectDto;
+import com.wemanity.KnowledgeManagement.exceptions.CommentDtoIsNullException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -104,4 +105,13 @@ public class CommentServiceImplTest {
 
 	}
 
+
+	@Test(expected = CommentDtoIsNullException.class)
+    public void
+            should_throw_CommentDtoIsNullException_when_generateCommentWithRefreshedDataFromCommentDto_is_calld_and_commentDto_is_null(){
+        LOGGER.info("--------------- Executing should_throw_nullPointerException_when_generateCommentWithRefreshedDataFromCommentDto_is_calld_and_commentDto_is_null test Of CommentServiceImplTest ---------------");
+
+        CommentDto commentDto = null;
+        commentService.generateCommentWithRefreshedDataFromCommentDto(commentDto);
+    }
 }
