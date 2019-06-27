@@ -1,5 +1,11 @@
 package com.wemanity.KnowledgeManagement.entities;
 
+import com.wemanity.KnowledgeManagement.dto.KnowledgeDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +18,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Knowledge {
 
@@ -40,102 +49,22 @@ public class Knowledge {
 
 	private Date lastModified;
 
-	public Knowledge(Integer id, String title, String description, String context, Project relatedProject,
-			String langage, String endType, List<Comment> comments, User userCreator, Date lastModified) {
+
+	public Knowledge(KnowledgeDto knowledgeDto){
 		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.context = context;
-		this.relatedProject = relatedProject;
-		this.langage = langage;
-		this.endType = endType;
-		this.comments = comments;
-		this.userCreator = userCreator;
-		this.lastModified = lastModified;
+		this.id = knowledgeDto.getId();
+		this.title= knowledgeDto.getTitle();
+		this.description = knowledgeDto.getDescription();
+		this.context = knowledgeDto.getContext();
+		this.relatedProject = new Project(knowledgeDto.getRelatedProject());
+		this.userCreator = new User(knowledgeDto.getUserCreator());
+		this.comments = new ArrayList();
+		knowledgeDto.getComments().parallelStream().forEach(
+				commentDto -> {
+						this.comments.add(new Comment(commentDto));
+				}
+		);
 	}
 
-	public Knowledge() {
 
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getContext() {
-		return context;
-	}
-
-	public void setContext(String context) {
-		this.context = context;
-	}
-
-	public Project getRelatedProject() {
-		return relatedProject;
-	}
-
-	public void setRelatedProject(Project relatedProject) {
-		this.relatedProject = relatedProject;
-	}
-
-	public String getLangage() {
-		return langage;
-	}
-
-	public void setLangage(String langage) {
-		this.langage = langage;
-	}
-
-	public String getEndType() {
-		return endType;
-	}
-
-	public void setEndType(String endType) {
-		this.endType = endType;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-
-	public User getUserCreator() {
-		return userCreator;
-	}
-
-	public void setUserCreator(User userCreator) {
-		this.userCreator = userCreator;
-	}
-
-	public Date getLastModified() {
-		return lastModified;
-	}
-
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
-	}
 }

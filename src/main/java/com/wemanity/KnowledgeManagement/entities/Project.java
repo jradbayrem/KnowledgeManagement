@@ -1,5 +1,10 @@
 package com.wemanity.KnowledgeManagement.entities;
 
+import com.wemanity.KnowledgeManagement.dto.ProjectDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -8,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Project {
 
@@ -26,66 +34,17 @@ public class Project {
 
 	private Date lastModified;
 
-	public Project(Integer id, String title, String businessField, String customer, User userCreator,
-			Date lastModified) {
+	public Project(ProjectDto projectDto){
 		super();
-		this.id = id;
-		this.title = title;
-		this.businessField = businessField;
-		this.customer = customer;
-		this.userCreator = userCreator;
-		this.lastModified = lastModified;
+		this.id = projectDto.getId();
+		this.title = projectDto.getTitle();
+		this.businessField = projectDto.getBusinessField();
+		this.customer = projectDto.getCustomer();
+		this.userCreator = new User(projectDto.getUserCreator());
 	}
 
-	public Project() {
 
-	}
 
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getBusinessField() {
-		return businessField;
-	}
-
-	public void setBusinessField(String businessField) {
-		this.businessField = businessField;
-	}
-
-	public String getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(String customer) {
-		this.customer = customer;
-	}
-
-	public User getUserCreator() {
-		return userCreator;
-	}
-
-	public void setUserCreator(User userCreator) {
-		this.userCreator = userCreator;
-	}
-
-	public Date getLastModified() {
-		return lastModified;
-	}
-
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
-	}
 }
