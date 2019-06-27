@@ -2,6 +2,7 @@ package com.wemanity.KnowledgeManagement.test.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyInt;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,6 +93,14 @@ public class CommentServiceImplTest {
 		assertNotNull(myComment.getContent());
 		assertEquals(myComment.getContent(),commentDto.getContent());
 		assertNotNull(myComment.getLastModified());
+
+	}
+
+	@Test
+	public void should_search_by_id_when_findById_is_called(){
+		LOGGER.info("--------------- Executing should_search_by_id_when_findById_is_called test Of CommentServiceImplTest ---------------");
+		commentService.findById(new Integer(1));
+		Mockito.verify(commentRepository).findById(anyInt());
 
 	}
 

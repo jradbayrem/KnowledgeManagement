@@ -3,6 +3,7 @@ package com.wemanity.KnowledgeManagement.services.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.wemanity.KnowledgeManagement.exceptions.CommentRepositoryException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,10 @@ public class CommentServiceImpl implements ICommentService {
 		return comments;
 	}
 
-
+    @Override
+    public Optional<Comment> findById(Integer id) {
+        return null;
+    }
 
 
 }

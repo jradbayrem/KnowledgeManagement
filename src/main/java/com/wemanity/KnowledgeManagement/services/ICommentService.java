@@ -1,6 +1,7 @@
 package com.wemanity.KnowledgeManagement.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.wemanity.KnowledgeManagement.dto.CommentDto;
 import com.wemanity.KnowledgeManagement.entities.Comment;
@@ -16,5 +17,5 @@ public interface ICommentService {
 	
 	public List<Comment> findByKnowledge(Knowledge knowledge);
 
-
+	public Optional<Comment> findById(Integer id);
 }
