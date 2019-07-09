@@ -100,7 +100,7 @@ public class UserServiceImpl implements IUserService {
 			user.setPassword(userDto.getPassword());
 			user.setEmail(userDto.getEmail());
 
-		}catch (DataAccessException e){
+		}catch (UserRepositoryException e){
 			e.printStackTrace();
 		}
 		return user;
