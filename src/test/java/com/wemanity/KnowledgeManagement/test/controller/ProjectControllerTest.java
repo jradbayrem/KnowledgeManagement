@@ -1,13 +1,20 @@
 package com.wemanity.KnowledgeManagement.test.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 import java.util.Date;
 
+import com.wemanity.KnowledgeManagement.dto.ProjectDto;
+import com.wemanity.KnowledgeManagement.dto.UserDto;
+import com.wemanity.KnowledgeManagement.mapper.ProjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
@@ -36,10 +43,13 @@ public class ProjectControllerTest {
 	private String uri;
 	private MockMvc mvc;
 	@Autowired
-	WebApplicationContext webApplicationContext;
+	private WebApplicationContext webApplicationContext;
+	@InjectMocks
+	private ProjectController projectController;
 	@Mock
-	ProjectServiceImpl projectServiceImpl;
-	ProjectController projectController;
+	private ProjectMapper projectMapper;
+	@Mock
+	private ProjectServiceImpl projectServiceImpl;
 
 	public ProjectControllerTest() {
 		this.uri = "/api";
@@ -57,10 +67,10 @@ public class ProjectControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_createProject_is_called test Of ProjectControllerTest ---------------");
 		try {
-			Project myProject = new Project(1,"myTitle","myBusinessField","myCustomer",null,new Date());
+			ProjectDto projectDto = new ProjectDto();
 			ObjectMapper objectMapper = new ObjectMapper();
-			String inputJson = objectMapper.writeValueAsString(myProject);
-			mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri + "/createProject")
+			String inputJson = objectMapper.writeValueAsString(projectDto);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri + "/projects")
 					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
@@ -73,9 +83,9 @@ public class ProjectControllerTest {
 	public void should_use_save_when_createProject_is_called() {
 		LOGGER.info(
 				"--------------- Executing should_use_save_when_createProject_is_called test Of ProjectControllerTest ---------------");
-		Project myProject = new Project();
-		projectController.createProject(myProject);
-		verify(projectServiceImpl).save(myProject);
+		doReturn(new ProjectDto()).when(projectMapper).projectToProjectDto(new Project());
+		projectController.createProject(ProjectDto.builder().userCreator(new UserDto()).build());
+		verify(projectServiceImpl).save(any(Project.class));
 	}
 	
 	@Test
@@ -83,10 +93,10 @@ public class ProjectControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_updateProject_is_called test Of ProjectControllerTest ---------------");
 		try {
-			Project myProject = new Project(1,"myTitle","myBusinessField","myCustomer",null,new Date());
+			ProjectDto projectDto = new ProjectDto();
 			ObjectMapper objectMapper = new ObjectMapper();
-			String inputJson = objectMapper.writeValueAsString(myProject);
-			mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/updateProject")
+			String inputJson = objectMapper.writeValueAsString(projectDto);
+			mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/projects")
 					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
@@ -99,9 +109,10 @@ public class ProjectControllerTest {
 	public void should_use_update_when_updateProject_is_called() {
 		LOGGER.info(
 				"--------------- Executing should_use_update_when_updateProject_is_called test Of ProjectControllerTest ---------------");
-		Project myProject = new Project();
-		projectController.updateProject(myProject);
-		verify(projectServiceImpl).update(myProject);
+		ProjectDto projectDto = new ProjectDto();
+		doReturn(new Project()).when(projectServiceImpl).generateProjectWithRefreshedDataFromProjectDto(projectDto);
+		projectController.updateProject(projectDto);
+		verify(projectServiceImpl).update(any(Project.class));
 	}
 	
 	@Test
@@ -109,10 +120,7 @@ public class ProjectControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_getProjectById_is_called test Of ProjectControllerTest ---------------");
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			String inputJson = objectMapper.writeValueAsString(1);
-			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/getProjectById")
-					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/projects"+"/1")).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
 			LOGGER.error("An exception occured");
@@ -125,7 +133,7 @@ public class ProjectControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_use_search_by_id_when_getProjectById_is_called test Of ProjectControllerTest ---------------");
 		projectController.getProjectById(1);
-		verify(projectServiceImpl).findById(1);
+		verify(projectServiceImpl).findById(anyInt());
 	}
 	
 	@Test
@@ -133,8 +141,7 @@ public class ProjectControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_have_200_status_when_getAllProjects_is_called test Of ProjectControllerTest ---------------");
 		try {
-			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/projects")
-					.contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+			mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri + "/projects")).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
 			LOGGER.error("An exception occured");

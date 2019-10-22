@@ -1,6 +1,7 @@
 package com.wemanity.KnowledgeManagement.entities;
 
 import com.wemanity.KnowledgeManagement.dto.UserDto;
+import com.wemanity.KnowledgeManagement.exceptions.UserDtoIsNullException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,7 +43,10 @@ public class User {
 	private Date lastModified;
 
 
-	public User(UserDto userDto){
+	public User(UserDto userDto) throws UserDtoIsNullException {
+		if(userDto == null){
+			throw new UserDtoIsNullException("The used UserDto is null");
+		}
 		this.id = userDto.getId();
 		this.login = userDto.getLogin();
 		this.password = userDto.getPassword();

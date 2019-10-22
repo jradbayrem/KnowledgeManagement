@@ -95,7 +95,7 @@ public class UserControllerTest {
 			UserDto userDto = new UserDto();
 			ObjectMapper objectMapper = new ObjectMapper();
 			String inputJson = objectMapper.writeValueAsString(userDto);
-			MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/updateUser")
+			MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri + "/users")
 					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
@@ -121,7 +121,7 @@ public class UserControllerTest {
 			UserDto userDto = new UserDto();
 			ObjectMapper objectMapper = new ObjectMapper();
 			String inputJson = objectMapper.writeValueAsString(userDto);
-			mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri + "/createUser")
+			mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri + "/users")
 					.contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 			assertEquals(200, mvcResult.getResponse().getStatus());
 		} catch (Exception e) {
@@ -135,7 +135,7 @@ public class UserControllerTest {
 		LOGGER.info(
 				"--------------- Executing should_use_save_when_createUser_is_called test Of UserServiceImplTest ---------------");
 		UserDto userDto = new UserDto();
-        doReturn(new UserDto()).when(userMapper).userToUserDto(any(User.class));
+        doReturn(new UserDto()).when(   userMapper).userToUserDto(any(User.class));
 
         userController.createUser(userDto);
 		verify(userServiceImpl).save(any(User.class));

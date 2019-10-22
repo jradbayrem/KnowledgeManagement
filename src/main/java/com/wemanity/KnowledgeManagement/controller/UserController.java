@@ -20,7 +20,7 @@ import com.wemanity.KnowledgeManagement.services.impl.UserServiceImpl;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
 	@Autowired
@@ -32,7 +32,7 @@ public class UserController {
 		userService = userServiceImpl;
 	}
 
-	@GetMapping(value = "/users")
+	@GetMapping
 	public List<UserDto> getAllUsers() {
 		List<UserDto> userDtoList = new ArrayList();
 		try {
@@ -49,7 +49,7 @@ public class UserController {
 	}
 
 
-	@PutMapping(value = "/updateUser")
+	@PutMapping
 	public void updateUser(@RequestBody UserDto userDto) {
 		try {
 			User user = userService.generateUserWithRefreshedDataFromUserDto(userDto);
@@ -59,7 +59,7 @@ public class UserController {
 		}
 	}
 
-	@PostMapping(value = "/createUser")
+	@PostMapping
 	public UserDto createUser(@RequestBody UserDto userDto) {
 
 		try {

@@ -1,16 +1,13 @@
 package com.wemanity.KnowledgeManagement.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.wemanity.KnowledgeManagement.entities.Knowledge;
 import com.wemanity.KnowledgeManagement.entities.Project;
@@ -20,50 +17,75 @@ import com.wemanity.KnowledgeManagement.services.impl.KnowledgeServiceImpl;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/knowledges")
 public class KnowledgeController {
 
 	@Autowired
 	IKnowledgeService knowledgeService;
 	
 	public KnowledgeController(KnowledgeServiceImpl knowledgeServiceImpl) {
+
 		this.knowledgeService = knowledgeServiceImpl;
 	}
 
-	@RequestMapping(value = "/createKnowledge", method = RequestMethod.POST)
-	public ResponseEntity<Knowledge> createKnowledge(@RequestBody Knowledge knowledge) {
-		knowledge = this.knowledgeService.save(knowledge);
-		return new ResponseEntity<Knowledge>(knowledge, HttpStatus.OK);
+	@PostMapping
+	public Knowledge createKnowledge(@RequestBody Knowledge knowledge) {
+		try {
+			knowledge = this.knowledgeService.save(knowledge);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return knowledge;
 	}
 	
-	@RequestMapping(value = "/updateKnowledge", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Knowledge> updateKnowledge(@RequestBody Knowledge knowledge) {
+	@PutMapping
+	public Knowledge updateKnowledge(@RequestBody Knowledge knowledge) {
+		try{
 		knowledge = this.knowledgeService.update(knowledge);
-		return new ResponseEntity<Knowledge>(knowledge, HttpStatus.OK);
+	}catch (Exception e){
+		e.printStackTrace();
+	}
+	return knowledge;
 	}
 	
-	@RequestMapping(value = "/knowledges", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Knowledge>> getAllKnowledges() {
-		List<Knowledge> knowledges = this.knowledgeService.findAll();
-		return new ResponseEntity<>(knowledges, HttpStatus.OK);
+	@GetMapping
+	public List<Knowledge> getAllKnowledges() {
+		List<Knowledge> knowledges = new ArrayList();
+		try {
+			knowledges=	this.knowledgeService.findAll();
+		}catch (Exception e){
+		e.printStackTrace();
+	}
+		return knowledges;
 	}
 	
-	@RequestMapping(value = "/knowledgesById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Knowledge> getKnowledgesById(@RequestBody Integer id) {
-		Knowledge knowledge = this.knowledgeService.findById(id);
-		return new ResponseEntity<>(knowledge, HttpStatus.OK);
+	@GetMapping(value = "/{id}")
+	public Knowledge getKnowledgesById(@PathVariable Integer id) {
+		Knowledge knowledge = new Knowledge();
+		try{
+	knowledge = this.knowledgeService.findById(id).orElse(null);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return knowledge;
 	}
 	
-	@RequestMapping(value = "/knowledgesByUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Knowledge>> getByUserCreator(@RequestBody User user) {
-		List<Knowledge> knowledges = this.knowledgeService.findByUserCreator(user);
-		return new ResponseEntity<>(knowledges, HttpStatus.OK);
+	@GetMapping(value = "/users/{id}")
+	public List<Knowledge> getByUserCreator(@PathVariable Integer id) {
+		List<Knowledge> knowledges =  new ArrayList();
+		try {
+		knowledges =	this.knowledgeService.findByUserCreator(null);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return knowledges;
 	}
 	
-	@RequestMapping(value = "/knowledgesByProject", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Knowledge>> getByRelatedProject(@RequestBody Project project) {
-		List<Knowledge> knowledges = this.knowledgeService.findByRelatedProject(project);
-		return new ResponseEntity<>(knowledges, HttpStatus.OK);
+    @GetMapping(value = "/projects/{id}")
+ 	public List<Knowledge> getByRelatedProject(@PathVariable Integer id) {
+		List<Knowledge> knowledges = this.knowledgeService.findByRelatedProject(Project.builder()
+        .id(id).build());
+		return knowledges;
 	}
 
 }

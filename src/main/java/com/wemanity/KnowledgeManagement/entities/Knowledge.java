@@ -1,9 +1,12 @@
 package com.wemanity.KnowledgeManagement.entities;
 
 import com.wemanity.KnowledgeManagement.dto.KnowledgeDto;
+import com.wemanity.KnowledgeManagement.exceptions.KnowledgeDtoIsNullException;
+import com.wemanity.KnowledgeManagement.exceptions.KnowledgeIsNullException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,8 +53,10 @@ public class Knowledge {
 	private Date lastModified;
 
 
-	public Knowledge(KnowledgeDto knowledgeDto){
-		super();
+	public Knowledge(KnowledgeDto knowledgeDto) throws KnowledgeDtoIsNullException {
+		if(knowledgeDto == null){
+			throw new KnowledgeDtoIsNullException("The used knowledgeDto is null");
+		}
 		this.id = knowledgeDto.getId();
 		this.title= knowledgeDto.getTitle();
 		this.description = knowledgeDto.getDescription();
@@ -59,11 +64,17 @@ public class Knowledge {
 		this.relatedProject = new Project(knowledgeDto.getRelatedProject());
 		this.userCreator = new User(knowledgeDto.getUserCreator());
 		this.comments = new ArrayList();
-		knowledgeDto.getComments().parallelStream().forEach(
-				commentDto -> {
+		if(CollectionUtils.isEmpty(knowledgeDto.getComments()))
+		{
+			knowledgeDto.getComments()
+					.parallelStream
+							().forEach(
+					commentDto -> {
 						this.comments.add(new Comment(commentDto));
-				}
-		);
+					}
+			);
+		}
+
 	}
 
 

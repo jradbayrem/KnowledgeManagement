@@ -3,6 +3,8 @@ package com.wemanity.KnowledgeManagement.test.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.wemanity.KnowledgeManagement.dto.UserDto;
+import com.wemanity.KnowledgeManagement.exceptions.ProjectDtoIsNullException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,10 +77,16 @@ public class ProjectServiceImplTest {
 	}
 	
 	@Test
-	public void should_get_a_not_null_project_when_getProjectFromProjectDto_is_called() {
-		LOGGER.info("--------------- Executing should_get_a_not_null_project_when_getProjectFromProjectDto_is_called test Of ProjectServiceImplTest ---------------");
-		ProjectDto projectDto = new ProjectDto(1, "myProject", "Banking", "BNP");
-		Project myProject = projectService.getProjectFromProjectDto(projectDto);
+	public void should_get_a_not_null_project_when_project_constructor_for_dto_is_called() {
+		LOGGER.info("--------------- Executing should_get_a_not_null_project_when_project_constructor_for_dto_is_called test Of ProjectServiceImplTest ---------------");
+		ProjectDto projectDto = ProjectDto.builder()
+				.businessField("BFA")
+				.id(1)
+				.customer("BNP")
+				.title("Recouvrement")
+				.userCreator(new UserDto())
+				.build();
+		Project myProject =new Project(projectDto);
 		assertNotNull(myProject);
 		assertNotNull(myProject.getId());
 		assertEquals(myProject.getId(),projectDto.getId());
@@ -88,8 +96,15 @@ public class ProjectServiceImplTest {
 		assertEquals(myProject.getTitle(),projectDto.getTitle());
 		assertNotNull(myProject.getCustomer());
 		assertEquals(myProject.getCustomer(),projectDto.getCustomer());
-		assertNotNull(myProject.getLastModified());
 		assertNotNull(myProject.getUserCreator());
 
 	}
+
+	@Test(expected = ProjectDtoIsNullException.class)
+	public void
+            should_throw_ProjectDtoIsNullException_when_generateProjectWithRefreshedDataFromProjectDto_is_called_and_proectDto_is_null(){
+        LOGGER.info("--------------- Executing should_throw_ProjectDtoIsNullException_when_generateProjectWithRefreshedDataFromProjectDto_is_called_and_proectDto_is_null test Of CommentServiceImplTest ---------------");
+ProjectDto projectDto = null;
+projectService.generateProjectWithRefreshedDataFromProjectDto(projectDto);
+    }
 }

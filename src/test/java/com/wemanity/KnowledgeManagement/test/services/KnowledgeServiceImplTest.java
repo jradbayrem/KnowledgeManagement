@@ -1,5 +1,7 @@
 package com.wemanity.KnowledgeManagement.test.services;
 
+import com.wemanity.KnowledgeManagement.dto.KnowledgeDto;
+import com.wemanity.KnowledgeManagement.exceptions.KnowledgeDtoIsNullException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -86,4 +88,11 @@ public class KnowledgeServiceImplTest {
 		Mockito.verify(knowledgeRepository).findByUserCreator(myUser);
 	}
 
+	@Test(expected = KnowledgeDtoIsNullException.class)
+	public void
+			should_throw_KnowledgeDtoIsNullException_when_generateKnowledgeWithRefreshedDataFromKnowledgeDto_is_called_and_knowledgeDto_is_null(){
+		LOGGER.info("--------------- Executing should_throw_KnowledgeDtoIsNullException_when_generateKnowledgeWithRefreshedDataFromKnowledgeDto_is_called_and_knowledgeDto_is_null test Of KnowledgeServiceImplTest ---------------");
+		KnowledgeDto knowledgeDto = null;
+		knowledgeService.generateKnowledgeWithRefreshedDataFromKnowledgeDto(knowledgeDto);
+	}
 }

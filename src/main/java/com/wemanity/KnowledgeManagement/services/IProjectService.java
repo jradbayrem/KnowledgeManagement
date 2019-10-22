@@ -1,6 +1,7 @@
 package com.wemanity.KnowledgeManagement.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.wemanity.KnowledgeManagement.dto.ProjectDto;
 import com.wemanity.KnowledgeManagement.entities.Project;
@@ -13,10 +14,10 @@ public interface IProjectService {
 	
 	public void delete(Project project);
 	
-	public Project findById(Integer id);
+	public Optional<Project> findById(Integer id);
 	
 	public List<Project> findAll();
 	
-	public Project getProjectFromProjectDto(ProjectDto project);
+	public Project generateProjectWithRefreshedDataFromProjectDto(ProjectDto project);
 
 }

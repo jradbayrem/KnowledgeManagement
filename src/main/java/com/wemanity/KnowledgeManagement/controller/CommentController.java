@@ -3,6 +3,10 @@ package com.wemanity.KnowledgeManagement.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+ import com.wemanity.KnowledgeManagement.dto.KnowledgeDto;
+import com.wemanity.KnowledgeManagement.mapper.CommentMapper;
+import com.wemanity.KnowledgeManagement.mapper.KnowledgeMapper;
+import com.wemanity.KnowledgeManagement.services.IKnowledgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,43 +24,43 @@ import com.wemanity.KnowledgeManagement.services.impl.CommentServiceImpl;
 @RequestMapping("/api")
 public class CommentController {
 
-	@Autowired
-	ICommentService commentService;
+    @Autowired
+    ICommentService commentService;
 
-	private Comment operationComment;
+    @Autowired
+    CommentMapper commentMapper;
 
-	public CommentController(CommentServiceImpl commentServiceImpl) {
-		this.commentService = commentServiceImpl;
-	}
+    @Autowired
+    KnowledgeMapper knowledgeMapper;
 
-	@GetMapping(value = "/comments")
-	public ResponseEntity<List<CommentDto>> getCommentsByKnowledge(@RequestBody Knowledge knowledge) {
-		List<Comment> comments = this.commentService.findByKnowledge(knowledge);
-		List<CommentDto> commentsDto = new ArrayList<CommentDto>();
-		for (Comment currentComment : comments) {
-			commentsDto.add(new CommentDto(currentComment));
-		}
-		return new ResponseEntity<>(commentsDto, HttpStatus.OK);
-	}
+    @Autowired
+    IKnowledgeService knowledgeService;
 
-	@PostMapping(value = "/createComment")
-	public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
-		comment = this.commentService.save(comment);
-		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
-	}
-	
-	@PutMapping (value = "/updateComment")
-	public CommentDto updateComment(@RequestBody CommentDto commentDto) {
-        operationComment = new Comment(commentDto);
-        this.commentService.update(operationComment);
-		return commentDto;
-	}
-
-    public Comment getOperationComment() {
-        return operationComment;
+    public CommentController(CommentServiceImpl commentServiceImpl) {
+        this.commentService = commentServiceImpl;
     }
 
-    public void setOperationComment(Comment operationComment) {
-        this.operationComment = operationComment;
+    @GetMapping(value = "/comments")
+    public List<CommentDto> getCommentsByKnowledge(@RequestBody KnowledgeDto knowledgeDto) {
+        //Optional<Knowledge> knowledge = knowledgeService.findById(knowledgeDto.getId());
+        return commentMapper.commentListToCommentDtoList(this.commentService.findByKnowledge(new Knowledge( )));
     }
+
+    @PostMapping(value = "/createComment")
+    public CommentDto createComment(@RequestBody CommentDto commentDto) {
+        try {
+            commentDto = this.commentMapper.commentToCommentDto(this.commentService.save(new Comment(commentDto)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return commentDto;
+
+    }
+
+    @PutMapping(value = "/updateComment")
+    public void updateComment(@RequestBody CommentDto commentDto) {
+        //return this.commentService.update(Comment);
+
+    }
+
 }

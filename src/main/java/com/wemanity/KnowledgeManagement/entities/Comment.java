@@ -1,6 +1,7 @@
 package com.wemanity.KnowledgeManagement.entities;
 
 import com.wemanity.KnowledgeManagement.dto.CommentDto;
+import com.wemanity.KnowledgeManagement.exceptions.CommentDtoIsNullException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,8 +36,10 @@ public class Comment {
 
 	private Date lastModified;
 
-	public Comment(CommentDto commentDto){
-		super();
+	public Comment(CommentDto commentDto) throws CommentDtoIsNullException {
+		if(commentDto == null){
+			throw new CommentDtoIsNullException("The used commentDto is null");
+		}
 		this.id = commentDto.getId();
 		this.title = commentDto.getTitle();
 		this.content = commentDto.getContent();
